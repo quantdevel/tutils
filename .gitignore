@@ -19,6 +19,7 @@ man
 
 # RStudio files
 .Rproj.user/
+.Rbuildignore
 
 # produced vignettes
 vignettes/*.html
