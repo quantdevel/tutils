@@ -1,0 +1,13 @@
+Package: tutils
+Type: Package
+Title: Utility functions for Tau
+Version: 1.0
+Date: 2014-10-17
+Author: Paul Teetor
+Maintainer: Paul Teetor <paulteetor@yahoo.com>
+Description: Utility functions for Tau systems
+Depends: ensurer,
+  xts,
+  zoo
+License: GPL
+RoxygenNote: 5.0.1
