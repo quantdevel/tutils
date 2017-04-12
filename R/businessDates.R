@@ -13,27 +13,31 @@ START_OF_TIME = as.Date("1987-01-01")
 #' @export
 #'
 isBusinessDay = function(dates) {
-    declare(dates="Date")
-    as.logical(RQuantLib::isBusinessDay(DEFAULT_CALENDAR, dates=dates))
+  ensure(date, is.Date)
+
+  as.logical(RQuantLib::isBusinessDay(DEFAULT_CALENDAR, dates=dates))
 }
 
 #'
 #'  Generate vector of business dates
 #'
-#' @param from
-#' @param to
+#' @param from Date or numeric;
+#'   numeric is number of days before \code{to} date
+#' @param to Date
 #' @return Vector of Date objects
 #' @export
 #'
 businessCalendar = function(from=START_OF_TIME, to=Sys.Date()) {
-    declare(from="integer|numeric|Date", to="Date")
-    if (is.Date(from)) {
-        start <- from
-    } else {
-        start <- subBusinessDays(to, from)
-    }
-    allDates <- seq(start, by=1, to=to)
-    allDates[isBusinessDay(allDates)]
+  ensure(from, is.numeric(.) || is.Date(.))
+  ensure(to, is.Date)
+
+  if (is.Date(from)) {
+    start <- from
+  } else {
+    start <- subBusinessDays(to, from)
+  }
+  allDates <- seq(start, by=1, to=to)
+  allDates[isBusinessDay(allDates)]
 }
 
 #'
@@ -44,8 +48,8 @@ businessCalendar = function(from=START_OF_TIME, to=Sys.Date()) {
 #' @export
 #'
 nearestBusinessDay = function(dates = Sys.Date()) {
-    declare(dates="Date")
-    RQuantLib::adjust(calendar=DEFAULT_CALENDAR, dates=dates, bdc=2)
+  declare(dates="Date")
+  RQuantLib::adjust(calendar=DEFAULT_CALENDAR, dates=dates, bdc=2)
 }
 
 #'
@@ -55,15 +59,15 @@ nearestBusinessDay = function(dates = Sys.Date()) {
 #' @export
 #'
 prevTradingDay = function() {
-    now <- Sys.time()
-    today <- as.Date(now, tz=DEFAULT_TIMEZONE)
+  now <- Sys.time()
+  today <- as.Date(now, tz=DEFAULT_TIMEZONE)
 
-    hour = as.POSIXlt(now, tz=DEFAULT_TIMEZONE)$hour
-    if (hour < END_OF_TRADING_DAY) {
-        nearestBusinessDay(today - 1)
-    } else {
-        nearestBusinessDay(today)
-    }
+  hour = as.POSIXlt(now, tz=DEFAULT_TIMEZONE)$hour
+  if (hour < END_OF_TRADING_DAY) {
+    nearestBusinessDay(today - 1)
+  } else {
+    nearestBusinessDay(today)
+  }
 }
 
 #'
@@ -73,15 +77,15 @@ prevTradingDay = function() {
 #' @export
 #'
 thisTradingDay = function() {
-    now <- Sys.time()
-    today <- as.Date(now, tz=DEFAULT_TIMEZONE)
-    busday <- nearestBusinessDay(today)
+  now <- Sys.time()
+  today <- as.Date(now, tz=DEFAULT_TIMEZONE)
+  busday <- nearestBusinessDay(today)
 
-    hour = as.POSIXlt(now, tz=DEFAULT_TIMEZONE)$hour
-    if (today > busday || hour >= END_OF_TRADING_DAY) {
-        busday <- nextBusinessDay(busday)
-    }
-    return(busday)
+  hour = as.POSIXlt(now, tz=DEFAULT_TIMEZONE)$hour
+  if (today > busday || hour >= END_OF_TRADING_DAY) {
+    busday <- nextBusinessDay(busday)
+  }
+  return(busday)
 }
 
 #'
@@ -93,8 +97,8 @@ thisTradingDay = function() {
 #' @export
 #'
 addBusinessTimeUnits = function(dates, n, timeUnit) {
-    declare(dates="Date", n="integer|numeric", timeUnit="integer|numeric")
-    RQuantLib::advance(calendar=DEFAULT_CALENDAR, dates=dates, n=n, timeUnit=timeUnit)
+  declare(dates="Date", n="integer|numeric", timeUnit="integer|numeric")
+  RQuantLib::advance(calendar=DEFAULT_CALENDAR, dates=dates, n=n, timeUnit=timeUnit)
 }
 
 #' @export addBusinessDays subBusinessDays
@@ -125,28 +129,28 @@ nextBusinessDay = function(dates) addBusinessTimeUnits(dates, +1, 0)
 #' @export
 #'
 businessDaySeq = function(from, horizon) {
-    declare(from="Date", horizon="integer|numeric|Date")
+  declare(from="Date", horizon="integer|numeric|Date")
 
-    if (is.numeric(horizon)) {
-        stopifnot(horizon > 0)
+  if (is.numeric(horizon)) {
+    stopifnot(horizon > 0)
 
-        if (horizon == 1) return(from)
-        seq <- rep(from, horizon)     # Just creating a vector of N dates
-        for (i in 2:horizon) {
-            seq[i] <- nextBusinessDay(seq[i-1])
-        }
-    } else {
-        # This can happen, for example, if expiration dates get screwed up
-        if (horizon < from) stop("businessDaySeq: 'horizon' is earlier than 'from'")
-
-        seq <- list()
-        while (from <= horizon) {
-            seq[length(seq) + 1] <- from
-            from <- nextBusinessDay(from)
-        }
-        seq <- unlist(seq)
+    if (horizon == 1) return(from)
+    seq <- rep(from, horizon)     # Just creating a vector of N dates
+    for (i in 2:horizon) {
+      seq[i] <- nextBusinessDay(seq[i-1])
     }
-    as.Date(seq)
+  } else {
+    # This can happen, for example, if expiration dates get screwed up
+    if (horizon < from) stop("businessDaySeq: 'horizon' is earlier than 'from'")
+
+    seq <- list()
+    while (from <= horizon) {
+      seq[length(seq) + 1] <- from
+      from <- nextBusinessDay(from)
+    }
+    seq <- unlist(seq)
+  }
+  as.Date(seq)
 }
 
 #'
