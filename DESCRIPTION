@@ -10,4 +10,4 @@ Depends: ensurer,
   xts,
   zoo
 License: GPL
-RoxygenNote: 5.0.1
+RoxygenNote: 7.1.1

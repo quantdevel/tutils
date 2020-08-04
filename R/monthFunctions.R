@@ -26,13 +26,13 @@ monthFactor <- function(z) {
 }
 
 #'
-#'  Convert month in character format to number (1, ..., 12)
+#'  Convert month in character format to integer (1, ..., 12)
 #'
 #' @param x Can be a number (1, ..., 12), name ("jan", "feb", ...),
 #'    futures month code ("F", "G", "H", ...),
 #'    Date, or yearmon.
 #'    Case is ignored for character arguments.
-#' @return Month number (1, ..., 12)
+#' @return Month number (1L, ..., 12L)
 #'
 #' @export
 #'
@@ -81,7 +81,7 @@ monthNumber.Date = function(d) {
 #' @rdname monthNumber
 #' @export
 monthNumber.yearmon = function(d) {
-  as.integer(as.POSIXlt(d)$mon + 1)
+  round(12 * (as.numeric(d) - as.integer(d))) + 1
 }
 
 # --------------------------------------------------------------

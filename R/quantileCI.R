@@ -119,15 +119,15 @@ medianCI.olive = function(y, conf.level) {
     }
 
     #
-    #  Next, compute Olive’s standard error for the median
+    #  Next, compute Olives standard error for the median
     #
     Ln = nhalf - ceiling(sqrt(n/4))
     Un = n - Ln
     SE = 0.5*(ysort[Un] - ysort[Ln+1])
 
     #
-    #  Compute the confidence interval based on Student’s t-distribution
-    #  The degrees of freedom parameter p is discussed in Olive’s paper
+    #  Compute the confidence interval based on Students t-distribution
+    #  The degrees of freedom parameter p is discussed in Olives paper
     #
     p = Un - Ln - 1
     t = qt(p = 1 - alpha/2, df = p)

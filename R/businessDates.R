@@ -13,7 +13,7 @@ START_OF_TIME = as.Date("1987-01-01")
 #' @export
 #'
 isBusinessDay = function(dates) {
-  ensure(date, is.Date)
+  ensure(dates, is.Date)
 
   as.logical(RQuantLib::isBusinessDay(DEFAULT_CALENDAR, dates=dates))
 }

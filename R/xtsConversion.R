@@ -60,7 +60,6 @@ xtsToDataFrame = function(x) {
 #' @param dfrm A data frame with a 'date' column
 #' @return An xts matrix
 #'
-#' @import xts
 #' @export
 #'
 dataFrameToXts = function(dfrm) {
@@ -69,5 +68,5 @@ dataFrameToXts = function(dfrm) {
     stopifnot("date" %in% colnames(dfrm))
 
     pos = which("date" %in% colnames(dfrm))
-    xts(dfrm[,-(pos)], as.Date(dfrm[,pos]))
+    xts::xts(dfrm[,-(pos)], as.Date(dfrm[,pos]))
 }
