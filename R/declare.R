@@ -1,12 +1,12 @@
 #'
 #'  Type-check a function parameter
-#'  
+#'
 #'  Stops if parameter type is wrong
-#'  
+#'
 #' @param ... Parameters of the form name="type"
 #' @return Nothing. Called for (possible) side-effect
 #' @export
-#'  
+#'
 declare = function(..., ..env = parent.frame()) {
 
     parseTypes = function(s) {

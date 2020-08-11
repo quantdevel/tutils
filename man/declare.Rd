@@ -2,9 +2,7 @@
 % Please edit documentation in R/declare.R
 \name{declare}
 \alias{declare}
-\title{Type-check a function parameter
- 
- Stops if parameter type is wrong}
+\title{Type-check a function parameter}
 \usage{
 declare(..., ..env = parent.frame())
 }
@@ -15,7 +13,5 @@ declare(..., ..env = parent.frame())
 Nothing. Called for (possible) side-effect
 }
 \description{
-Type-check a function parameter
- 
- Stops if parameter type is wrong
+Stops if parameter type is wrong
 }
