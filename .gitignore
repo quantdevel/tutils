@@ -2,9 +2,6 @@
 .Rhistory
 .Rapp.history
 
-# Generated documentation
-man
-
 # Session Data files
 .RData
 
@@ -20,10 +17,6 @@ man
 # RStudio files
 .Rproj.user/
 .Rbuildignore
-
-# produced vignettes
-vignettes/*.html
-vignettes/*.pdf
 
 # Temporary files created by R markdown
 *.utf8.md
