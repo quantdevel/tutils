@@ -9,6 +9,9 @@ Description: Utility functions for Tau systems
 Depends: ensurer,
   xts,
   zoo
+Imports: dplyr,
+  tibble
+Recommends: RQuantLib
 License: GPL
 Encoding: UTF-8
 RoxygenNote: 7.1.1
