@@ -5,8 +5,7 @@
 #'
 #'  Convert xts to regression-ready data frame
 #'
-#'  Use this when then xts column names are factor levels,
-#'  such as stock symbols or names of futures contracts.
+#'  DEPRECATED. Use tidy() instead.
 #'
 #'  The three output columns are:
 #'  \itemize{
@@ -33,7 +32,7 @@ xtsToRegressionData = function(x) {
 #'
 #'  Convert xts matrix to data frame
 #'
-#'  Adds 'date' column to hold the xts index
+#'  DEPRECATED. Use tidy() instead.
 #'
 #' @param x An xts matrix
 #' @return A data frame with the input columns
@@ -53,9 +52,7 @@ xtsToDataFrame = function(x) {
 #'
 #'  Convert a data frame to an xts matrix
 #'
-#'  This assumes that the input contains a 'date' column
-#'    with the needed index. The column will be converted
-#'    to Date objects, if necessary.
+#"  DEPRECATED. Use as.xts.data.frame or as.xts.tbl_df instead.
 #'
 #' @param dfrm A data frame with a 'date' column
 #' @return An xts matrix

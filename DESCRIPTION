@@ -10,4 +10,5 @@ Depends: ensurer,
   xts,
   zoo
 License: GPL
+Encoding: UTF-8
 RoxygenNote: 7.1.1
