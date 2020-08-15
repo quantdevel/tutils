@@ -2,6 +2,8 @@
 # Functions for working with months
 #
 
+MONTH_LEVELS = c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
+
 #'
 #'  Create month factor from zoo or xts object
 #'
@@ -17,12 +19,36 @@
 #' @seealso months
 #' @export
 #'
-monthFactor <- function(z) {
+monthFactor = function(x, ...) UseMethod("monthFactor", x)
+
+#' @rdname monthFactor
+#' @export
+monthFactor.Date = function(d) {
+  ## ensure(d, lubridate::is.Date)
+
+  factor(base::months(d, abbreviate=TRUE), levels = MONTH_LEVELS)
+}
+
+#' @rdname monthFactor
+#' @export
+monthFactor.zoo = function(z) {
   ensure(z, zoo::is.zoo(.))
 
-	monthLevels <- c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
-	factor(months(zoo::index(z), abbreviate=TRUE),
-		     levels=monthLevels )
+  monthFactor(zoo::index(z))
+}
+
+#' @rdname monthFactor
+#' @export
+monthFactor.character = function(ch) {
+  i = monthNumber(ch)
+  factor(MONTH_LEVELS[i], levels = MONTH_LEVELS)
+}
+
+#' @rdname monthFactor
+#' @export
+monthFactor.yearmon = function(ym) {
+  i = monthNumber(ym)
+  factor(MONTH_LEVELS[i], levels = MONTH_LEVELS)
 }
 
 #'

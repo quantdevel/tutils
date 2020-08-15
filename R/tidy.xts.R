@@ -21,8 +21,8 @@ tidy.xts = function(x, pivot_longer = TRUE, ...) {
                         tibble::remove_rownames(xts:::as.data.frame.xts(x)) )
 
   if (pivot_longer) {
-    ret <- pivot_longer(ret, cols = c(dplyr::everything(), -index),
-                        names_to = "series", values_to = "value")
+    ret <- tidyr::pivot_longer(ret, cols = c(dplyr::everything(), -index),
+                               names_to = "series", values_to = "value")
   }
 
   return(ret)

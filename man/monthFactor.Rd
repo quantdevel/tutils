@@ -2,11 +2,23 @@
 % Please edit documentation in R/datePartFactors.R, R/monthFunctions.R
 \name{monthFactor}
 \alias{monthFactor}
+\alias{monthFactor.Date}
+\alias{monthFactor.zoo}
+\alias{monthFactor.character}
+\alias{monthFactor.yearmon}
 \title{Create month-of-year factor from zoo or xts object}
 \usage{
-monthFactor(z)
+monthFactor(x, ...)
 
-monthFactor(z)
+monthFactor(x, ...)
+
+\method{monthFactor}{Date}(d)
+
+\method{monthFactor}{zoo}(z)
+
+\method{monthFactor}{character}(ch)
+
+\method{monthFactor}{yearmon}(ym)
 }
 \arguments{
 \item{z}{The zoo or xts object}

@@ -10,8 +10,9 @@ Depends: ensurer,
   xts,
   zoo
 Imports: dplyr,
-  tibble
-Recommends: RQuantLib
+  RQuantLib,
+  tibble,
+  tidyr
 License: GPL
 Encoding: UTF-8
 RoxygenNote: 7.1.1
