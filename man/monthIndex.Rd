@@ -6,6 +6,7 @@
 \alias{monthIndex.POSIXlt}
 \alias{monthIndex.integer}
 \alias{monthIndex.numeric}
+\alias{monthIndex.yearmon}
 \alias{monthIndexToDate}
 \title{Serial number of a month}
 \usage{
@@ -18,6 +19,8 @@ monthIndex(x, ...)
 \method{monthIndex}{integer}(year, month)
 
 \method{monthIndex}{numeric}(year, month)
+
+\method{monthIndex}{yearmon}(x)
 
 monthIndexToDate(mi)
 }

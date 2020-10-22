@@ -149,7 +149,7 @@ monthIndex = function(x, ...) UseMethod("monthIndex", x)
 
 #' @export
 monthIndex.default = function(x, ...) {
-  stop("Cannot convert ", class(x), " to month index")
+  fatal("Cannot convert ", class(x)[[1]], " to month index")
 }
 
 #' @rdname monthIndex
@@ -177,6 +177,12 @@ monthIndex.integer = function(year, month) {
 #' @export
 monthIndex.numeric = function(year, month) {
   12*(year - 1970) + month - 1
+}
+
+#' @rdname monthIndex
+#' @export
+monthIndex.yearmon = function(x) {
+  round(12 * (as.numeric(x) - 1970))
 }
 
 #' @rdname monthIndex
