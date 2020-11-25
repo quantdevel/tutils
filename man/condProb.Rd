@@ -15,7 +15,7 @@ are the relevent trials; NULL means all elements are relevent
 (logical)}
 
 \item{...}{Passed to \code{prop.test} function
-(e.g., code{conf.level} or code{alternative})}
+(e.g., \code{conf.level} or \code{alternative})}
 }
 \value{
 Returns a tibble with three columns
@@ -26,8 +26,7 @@ Returns a tibble with three columns
  }
 }
 \description{
-With the \code{trials} parameter, this returns
- the conditional probability: Pr(succ | trial).
+This returns the conditional probability: Pr(succ | trial).
 }
 \details{
 Without the \code{trials} argument, this becomes

@@ -1,8 +1,7 @@
 #'
 #'  Calculate conditional probability
 #'
-#'  With the \code{trials} parameter, this returns
-#'  the conditional probability: Pr(succ | trial).
+#'  This returns the conditional probability: Pr(succ | trial).
 #'
 #'  Without the \code{trials} argument, this becomes
 #'  a simple probability calculation.
@@ -16,7 +15,7 @@
 #'   are the relevent trials; NULL means all elements are relevent
 #'   (logical)
 #' @param ... Passed to \code{prop.test} function
-#'   (e.g., code{conf.level} or code{alternative})
+#'   (e.g., \code{conf.level} or \code{alternative})
 #'
 #' @return Returns a tibble with three columns
 #'   \itemize{
