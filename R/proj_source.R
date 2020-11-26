@@ -3,11 +3,14 @@
 #'
 #'  This will source all *.R files in the R subdirectory
 #'  of the current project.
+#'  Their contents are loaded into the global environment.
 #'
 #' @param files Vector or list of files to source;
 #'   NULL means all *.R files (character)
 #' @param ... Passed to \code{source}
 #' @return Nothing
+#' @seealso \link{proj_library} for sourcing project files
+#'  into a new, attached environment.
 #' @export
 #'
 proj_source = function(files = NULL, ...) {
