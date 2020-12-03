@@ -2,16 +2,34 @@
 % Please edit documentation in R/declare.R
 \name{declare}
 \alias{declare}
+\alias{decl}
 \title{Type-check a function parameter}
 \usage{
 declare(..., ..env = parent.frame())
+
+decl(x, pred)
 }
 \arguments{
-\item{...}{Parameters of the form name="type"}
+\item{...}{Parameters of the form name="type"
+or even name="type1|type2|..."}
+
+\item{x}{Variable to be type-checked}
+
+\item{pred}{A type checking predicate, such as
+\code{is.character} or \code{is.data.frame} (function)}
 }
 \value{
-Nothing. Called for (possible) side-effect
+\code{decl} returns its first argument.
+  \code{declare} returns NULL invisibly.
+  In any event, both functions halt on type errors.
 }
 \description{
-Stops if parameter type is wrong
+Stops if variable type is wrong.
+}
+\details{
+\code{decl} is a simple, fast type checker,
+ and should be used when speed matters,
+ such as in low-level functions.
+ \code{declare} is more powerful and implements
+ a convenient syntax for richer types.
 }
