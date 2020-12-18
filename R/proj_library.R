@@ -7,6 +7,12 @@
 #'  and attaches that environment at the top of the search
 #'  path (but underneith the global environment).
 #'
+#'  If calls to library() or require() are needed, all such calls must
+#'  be collected into a special file called "packages.R"
+#'  (and that file should contain only calls to library() and/or require()).
+#'  Otherwise, the packages will be loaded into the wrong
+#'  place on the search list.
+#'
 #' @param files Vector or list of files to source;
 #'   NULL means all *.R files (character)
 #' @param ... Passed to \code{source}
@@ -20,17 +26,27 @@
 proj_library = function(files = NULL, ...) {
   ensure(files, is.null(.) || is.character(.))
 
+  ENV_NAME = "proj_library"
+
   dir = here::here("R")
   if (is.null(files)) {
     files = list.files(path = dir, pattern = ".R$")
   }
 
-  env = new.env(parent = as.environment(2))
-
-  for (file in files) {
-    source(file.path(dir, file),
-           local = env, ...)
+  ## EXPERIMENTAL: if proj_library already on search list, detach it
+  if (ENV_NAME %in% search()) {
+    detach(ENV_NAME, character.only = TRUE)
   }
 
-  attach(env, pos = 2L, name = "proj_library")
+  if ("packages.R" %in% files) {
+    source(file.path(dir, "packages.R"), local = FALSE)
+    files = setdiff(files, "packages.R")
+  }
+
+  env = attach(NULL, name = ENV_NAME)
+
+  for (file in files) {
+    sys.source(file = file.path(dir, file),
+               envir = env )
+  }
 }
