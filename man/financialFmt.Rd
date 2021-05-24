@@ -2,14 +2,23 @@
 % Please edit documentation in R/financialFmt.R
 \name{financialFmt}
 \alias{financialFmt}
+\alias{dollarFmt}
 \title{Format a number in "financial" format}
 \usage{
-financialFmt(x, digits = 2)
+financialFmt(x, prefix = "", accuracy = 1)
+
+dollarFmt(x, ...)
 }
 \arguments{
-\item{x}{Value to be formatted}
+\item{x}{Value to be formatted (numeric)}
 
-\item{digits}{Round to this number of digitis, default 2}
+\item{prefix}{Prefix to prepend, typically a currency symbol (character, optional)}
+
+\item{accuracy}{Accuracy of formatted result;
+e.g., 1 for rounding to nearest dollar, 0.01 for rounding to nearest penny
+(numeric, optional)}
+
+\item{...}{Passed to \code{financialFmr}}
 }
 \value{
 A string
