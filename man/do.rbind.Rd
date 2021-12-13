@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{do.rbind}
 \alias{do.rbind}
-\title{Bind list elements into rows}
+\title{Bind list elements into rows - OBSOLETE}
 \usage{
 do.rbind(lst)
 }
@@ -13,8 +13,11 @@ do.rbind(lst)
 A matrix whose rows are taken from the list elements
 }
 \description{
+OBSOLETE. Replaced by dplyr::bind_rows.
+}
+\details{
 This is handy with the pipe operator:
- lapply(aList, aFunction) %>% do.rbind
+ alist |> lapply(aFunction) |> do.rbind()
 }
 \seealso{
 \link{do.cbind}

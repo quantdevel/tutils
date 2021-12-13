@@ -19,13 +19,15 @@ coalesce = function(...) {
         if (!is.null(x) && !is.na(x)) return(x)
     }
     NULL
-}
+} 
 
 #'
-#'  Bind list elements into columns
+#'  Bind list elements into columns - OBSOLETE
+#'
+#'  OBSOLETE. Replaced by dplyr::bind_cols.
 #'
 #'  This is handy with the pipe operator:
-#'  lapply(aList, aFunction) %>% do.cbind
+#'  aList |> lapply(aFunction) |> do.cbind()
 #'
 #' @param lst A list
 #' @return A matrix whose columns are taken from the list elements
@@ -36,10 +38,12 @@ coalesce = function(...) {
 do.cbind = function(lst) do.call(cbind, lst)
 
 #'
-#'  Bind list elements into rows
+#'  Bind list elements into rows - OBSOLETE
+#'
+#'  OBSOLETE. Replaced by dplyr::bind_rows.
 #'
 #'  This is handy with the pipe operator:
-#'  lapply(aList, aFunction) %>% do.rbind
+#'  alist |> lapply(aFunction) |> do.rbind()
 #'
 #' @param lst A list
 #' @return A matrix whose rows are taken from the list elements

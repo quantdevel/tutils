@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{do.cbind}
 \alias{do.cbind}
-\title{Bind list elements into columns}
+\title{Bind list elements into columns - OBSOLETE}
 \usage{
 do.cbind(lst)
 }
@@ -13,8 +13,11 @@ do.cbind(lst)
 A matrix whose columns are taken from the list elements
 }
 \description{
+OBSOLETE. Replaced by dplyr::bind_cols.
+}
+\details{
 This is handy with the pipe operator:
- lapply(aList, aFunction) %>% do.cbind
+ aList |> lapply(aFunction) |> do.cbind()
 }
 \seealso{
 \link{do.rbind}
