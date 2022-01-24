@@ -37,8 +37,14 @@ as.Side.numeric = function(x) {
 
 #' @export
 as.Side.character = function(x) {
-  fatalIfNot(all(x %in% c(SHORT_SIDE, LONG_SIDE)), "Cannot convert character to Side")
+  fatalIfNot(all(x %in% c(SHORT_SIDE, LONG_SIDE)),
+             "Cannot convert character to Side")
   Side(x)
+}
+
+#' @export
+as.Side.BullBear = function(x) {
+  Side(ifelse(x == BULL_MKT, LONG_SIDE, SHORT_SIDE))
 }
 
 #' @export
@@ -88,4 +94,57 @@ as.Polarity.character = function(x) {
 #' @export
 as.Polarity.Side = function(x) {
   Polarity(ifelse(x == "long", +1L, -1L))
+}
+
+#' @export
+as.Polarity.BullBear = function(x) {
+  Polarity(ifelse(x == BULL_MKT, +1L, -1L))
+}
+
+# ----------------------------------------------------------
+
+#
+# Bull/bear market
+#
+
+#' @export
+BEAR_MKT = "bear"
+
+#' @export
+BULL_MKT = "bull"
+
+BULL_BEAR_LEVELS = c(BEAR_MKT, BULL_MKT)
+
+#' @export
+BullBear = function(x) {
+  fatalIfNot(all(x %in% BULL_BEAR_LEVELS),
+            "Invalid BullBear value" )
+  structure(x, class = "BullBear")
+}
+
+#' @export
+is.BullBear = function(x) inherits(x, "BullBear")
+
+#' @export
+as.BullBear = function(x) UseMethod("as.BullBear", x)
+
+#' @export
+as.BullBear.BullBear = function(x) x
+
+#' @export
+as.BullBear.numeric = function(x) {
+  fatalIfNot(all(x %in% c(-1, +1)), "Cannot convert numeric to BullBear")
+  BullBear(ifelse(x == +1, BULL_MKT, BEAR_MKT))
+}
+
+#' @export
+as.BullBear.character = function(x) {
+  fatalIfNot(all(x %in% BULL_BEAR_LEVELS),
+             "Cannot convert character to BullBear")
+  BullBear(x)
+}
+
+#' @export
+as.integer.BullBear = function(x) {
+  ifelse(x == BULL_MKT, +1L, -1L)
 }
