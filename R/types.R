@@ -145,6 +145,16 @@ as.BullBear.character = function(x) {
 }
 
 #' @export
+as.BullBear.Polarity = function(x) {
+  BullBear(ifelse(x == +1, BULL_MKT, BEAR_MKT))
+}
+
+#' @export
+as.BullBear.Side = function(x) {
+  BullBear(ifelse(x == "long", BULL_MKT, BEAR_MKT))
+}
+
+#' @export
 as.integer.BullBear = function(x) {
   ifelse(x == BULL_MKT, +1L, -1L)
 }
