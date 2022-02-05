@@ -43,7 +43,7 @@ as.Side.character = function(x) {
 }
 
 #' @export
-as.Side.BullBear = function(x) {
+as.Side.Tone = function(x) {
   Side(ifelse(x == BULL_MKT, LONG_SIDE, SHORT_SIDE))
 }
 
@@ -97,14 +97,14 @@ as.Polarity.Side = function(x) {
 }
 
 #' @export
-as.Polarity.BullBear = function(x) {
+as.Polarity.Tone = function(x) {
   Polarity(ifelse(x == BULL_MKT, +1L, -1L))
 }
 
 # ----------------------------------------------------------
 
 #
-# Bull/bear market
+# Market tone: bullis or bearish
 #
 
 #' @export
@@ -113,48 +113,48 @@ BEAR_MKT = "bear"
 #' @export
 BULL_MKT = "bull"
 
-BULL_BEAR_LEVELS = c(BEAR_MKT, BULL_MKT)
+TONE_LEVELS = c(BEAR_MKT, BULL_MKT)
 
 #' @export
-BullBear = function(x) {
-  fatalIfNot(all(x %in% BULL_BEAR_LEVELS),
-            "Invalid BullBear value" )
-  structure(x, class = "BullBear")
+Tone = function(x) {
+  fatalIfNot(all(x %in% TONE_LEVELS),
+            "Invalid Tone value" )
+  structure(x, class = "Tone")
 }
 
 #' @export
-is.BullBear = function(x) inherits(x, "BullBear")
+is.Tone = function(x) inherits(x, "Tone")
 
 #' @export
-as.BullBear = function(x) UseMethod("as.BullBear", x)
+as.Tone = function(x) UseMethod("as.Tone", x)
 
 #' @export
-as.BullBear.BullBear = function(x) x
+as.Tone.Tone = function(x) x
 
 #' @export
-as.BullBear.numeric = function(x) {
-  fatalIfNot(all(x %in% c(-1, +1)), "Cannot convert numeric to BullBear")
-  BullBear(ifelse(x == +1, BULL_MKT, BEAR_MKT))
+as.Tone.numeric = function(x) {
+  fatalIfNot(all(x %in% c(-1, +1)), "Cannot convert numeric to Tone")
+  Tone(ifelse(x == +1, BULL_MKT, BEAR_MKT))
 }
 
 #' @export
-as.BullBear.character = function(x) {
-  fatalIfNot(all(x %in% BULL_BEAR_LEVELS),
-             "Cannot convert character to BullBear")
-  BullBear(x)
+as.Tone.character = function(x) {
+  fatalIfNot(all(x %in% TONE_LEVELS),
+             "Cannot convert character to Tone")
+  Tone(x)
 }
 
 #' @export
-as.BullBear.Polarity = function(x) {
-  BullBear(ifelse(x == +1, BULL_MKT, BEAR_MKT))
+as.Tone.Polarity = function(x) {
+  Tone(ifelse(x == +1, BULL_MKT, BEAR_MKT))
 }
 
 #' @export
-as.BullBear.Side = function(x) {
-  BullBear(ifelse(x == "long", BULL_MKT, BEAR_MKT))
+as.Tone.Side = function(x) {
+  Tone(ifelse(x == "long", BULL_MKT, BEAR_MKT))
 }
 
 #' @export
-as.integer.BullBear = function(x) {
+as.integer.Tone = function(x) {
   ifelse(x == BULL_MKT, +1L, -1L)
 }
