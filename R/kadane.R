@@ -1,5 +1,5 @@
 #'
-#'  Continuous subvector with the largest sum
+#'  Contiguous subvector with the largest sum
 #'
 #'  Finds the contiguous subvector with the
 #'  largest sum among all the contiguous subvectors of \code{v}.

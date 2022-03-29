@@ -2,7 +2,7 @@
 % Please edit documentation in R/kadane.R
 \name{kadane}
 \alias{kadane}
-\title{Continuous subvector with the largest sum}
+\title{Contiguous subvector with the largest sum}
 \usage{
 kadane(v)
 }
