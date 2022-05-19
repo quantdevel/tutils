@@ -4,11 +4,12 @@
 \alias{proj_library}
 \title{Attach the files in project's R directory}
 \usage{
-proj_library(files = NULL, ...)
+proj_library(dir = NULL, ...)
 }
 \arguments{
-\item{files}{Vector or list of files to source;
-NULL means all *.R files (character)}
+\item{dir}{Path of \code{R} directory;
+NULL means use the \code{R} directory of the enclosing
+RStudio project (character)}
 
 \item{...}{Passed to \code{source}}
 }

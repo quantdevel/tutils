@@ -13,8 +13,9 @@
 #'  Otherwise, the packages will be loaded into the wrong
 #'  place on the search list.
 #'
-#' @param files Vector or list of files to source;
-#'   NULL means all *.R files (character)
+#' @param dir Path of \code{R} directory;
+#'   NULL means use the \code{R} directory of the enclosing
+#'   RStudio project (character)
 #' @param ... Passed to \code{source}
 #' @return Nothing
 #' @seealso \link{proj_source} for sourcing project files
@@ -23,17 +24,16 @@
 #'  from the search path.
 #' @export
 #'
-proj_library = function(files = NULL, ...) {
-  ensure(files, is.null(.) || is.character(.))
+proj_library = function(dir = NULL, ...) {
+  ensure(dir, is.null(.) || is.character(.))
 
   ENV_NAME = "proj_library"
 
-  dir = here::here("R")
-  if (is.null(files)) {
-    files = list.files(path = dir, pattern = ".R$")
+  if (is.null(dir)) {
+    dir = here::here("R")
   }
+  files = list.files(path = dir, pattern = ".R$")
 
-  ## EXPERIMENTAL: if proj_library already on search list, detach it
   if (ENV_NAME %in% search()) {
     detach(ENV_NAME, character.only = TRUE)
   }
