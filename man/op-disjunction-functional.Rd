@@ -13,8 +13,7 @@ p1 \%or\% p2
 \item{p2}{A predicate of one argument}
 }
 \value{
-Returns a \emph{function}, not
-  a value. (Be careful.)
+Returns a \emph{function}, not a value. (Be careful.)
 }
 \description{
 Given two predicates, this operator combines them
@@ -22,7 +21,8 @@ Given two predicates, this operator combines them
  the given predicates, applying "||" to the results.
 }
 \details{
-
+Typical usage within the Tau software would be
+ \code{decl(x, is.null \%or\% is.numeric)}.
 }
 \examples{
 (is.null \%or\% is.numeric)(NULL)

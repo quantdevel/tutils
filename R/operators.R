@@ -23,13 +23,12 @@
 #'  into one, new predicate. The new predicate calls
 #'  the given predicates, applying "||" to the results.
 #'
-#'  Typical usage within the Tau sofware would be
-#'  \code{decl(x, is.null %or% is.numeric)}.
+#'  Typical usage within the Tau software would be
+#'  \code{decl(x, is.null \%or\% is.numeric)}.
 #'
 #' @param p1 A predicate of one argument
 #' @param p2 A predicate of one argument
-#' @return Returns a \emph{function}, not
-#'   a value. (Be careful.)
+#' @return Returns a \emph{function}, not a value. (Be careful.)
 #' @export
 #' @name op-disjunction-functional
 #' @examples
