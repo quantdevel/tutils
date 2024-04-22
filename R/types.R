@@ -2,11 +2,7 @@
 #  Misc. small types
 #
 
-# ----------------------------------------------------------
-
-#
-#   Side type
-#
+# Side type ----------------------------------------------------------
 
 #' @export
 SHORT_SIDE = structure("short", class = "Side")
@@ -43,6 +39,11 @@ as.Side.character = function(x) {
 }
 
 #' @export
+as.Side.Polarity = function(x) {
+  Side(ifelse(x == +1, LONG_SIDE, SHORT_SIDE))
+}
+
+#' @export
 as.Side.Tone = function(x) {
   Side(ifelse(x == BULL_MKT, LONG_SIDE, SHORT_SIDE))
 }
@@ -52,11 +53,7 @@ as.integer.Side = function(x) {
   ifelse(x == "long", +1L, -1L)
 }
 
-# ----------------------------------------------------------
-
-#
-#   Polarity type
-#
+# Polarity type ----------------------------------------------------------
 
 #' @export
 SHORT_POLARITY = structure(-1L, class = "Polarity")
@@ -101,10 +98,10 @@ as.Polarity.Tone = function(x) {
   Polarity(ifelse(x == BULL_MKT, +1L, -1L))
 }
 
-# ----------------------------------------------------------
+# Market Tone ----------------------------------------------------------
 
 #
-# Market tone: bullis or bearish
+#  Tone can be bullish or bearish
 #
 
 #' @export
