@@ -6,7 +6,7 @@
 \alias{fatalIfNot}
 \title{Report or test a fatal condition}
 \usage{
-fatal(..., sep = " ", caller = NULL)
+fatal(..., sep = " ", caller = NULL, .depth = 1)
 
 fatalIf(cond, ..., caller = NULL)
 

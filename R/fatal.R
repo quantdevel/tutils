@@ -29,8 +29,7 @@ fatal = function(..., sep = " ", caller = NULL) {
 #' @export
 fatalIf = function(cond, ..., caller = NULL) {
   if (cond) {
-    fatal(...,
-          caller = caller %||% as.list(sys.call(-1))[[1]] )
+    fatal(..., caller = caller)
   }
 }
 
@@ -38,7 +37,6 @@ fatalIf = function(cond, ..., caller = NULL) {
 #' @export
 fatalIfNot = function(cond, ..., caller = NULL) {
   if (!cond) {
-    fatal(...,
-          caller = caller %||% as.list(sys.call(-1))[[1]] )
+    fatal(..., caller = caller)
   }
 }
