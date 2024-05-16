@@ -38,7 +38,6 @@ xtsToRegressionData = function(x) {
 #' @return A data frame with the input columns
 #'    plus a new 'date' column
 #'
-#' @import zoo
 #' @export
 #'
 xtsToDataFrame = function(x) {

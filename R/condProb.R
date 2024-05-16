@@ -43,8 +43,8 @@ condProb = function(succ, trials = NULL, ...) {
   }
 
   (prop.test(nSucc, nTrials, ...)
-    %>% broom::tidy()
-    %>% dplyr::transmute(CondProb = estimate,
+    |> broom::tidy()
+    |> dplyr::transmute(CondProb = estimate,
                          Low = conf.low,
                          High = conf.high) )
 }

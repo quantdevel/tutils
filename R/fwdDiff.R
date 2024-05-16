@@ -16,5 +16,5 @@ fwdDiff = function(x, lag, na.pad=TRUE) {
   stopifnot(lag >= 0)
 
   (xts::diff.xts(x, lag=lag)
-   %>% xts::lag.xts(k=-(lag)) )
+   |> xts::lag.xts(k=-(lag)) )
 }
