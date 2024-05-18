@@ -11,8 +11,11 @@ SHORT_SIDE = structure("short", class = "Side")
 LONG_SIDE = structure("long", class = "Side")
 
 #' @export
+NA_SIDE = structure(NA_character_, class = "Side")
+
+#' @export
 Side = function(x) {
-  fatalIfNot(all(x %in% c(SHORT_SIDE, LONG_SIDE)), "Invalid Side values")
+  fatalIfNot(all(x %in% c(SHORT_SIDE, LONG_SIDE, NA)), "Invalid Side values")
   structure(x, class = "Side")
 }
 
@@ -27,20 +30,27 @@ as.Side.Side = function(x) x
 
 #' @export
 as.Side.numeric = function(x) {
-  fatalIfNot(all(x %in% c(-1, +1)), "Cannot convert numeric to Side")
-  Side(ifelse(x == +1, LONG_SIDE, SHORT_SIDE))
+  fatalIfNot(all(x %in% c(-1, +1, NA)), "Invalid numeric Side values")
+
+  (dplyr::case_when(is.na(x) ~ NA_character_,
+                    x == +1 ~ "long",
+                    x == -1 ~ "short")
+    |> Side() )
 }
 
 #' @export
 as.Side.character = function(x) {
-  fatalIfNot(all(x %in% c(SHORT_SIDE, LONG_SIDE)),
-             "Cannot convert character to Side")
   Side(x)
 }
 
 #' @export
 as.Side.Polarity = function(x) {
-  Side(ifelse(x == +1, LONG_SIDE, SHORT_SIDE))
+  as.Side.numeric(x)
+
+  # (dplyr::case_when(is.na(x) ~ NA_character_,
+  #                   x == +1L ~ "long",
+  #                   x == -1L ~ "short")
+  #  |> Side() )
 }
 
 #' @export
@@ -50,7 +60,9 @@ as.Side.Tone = function(x) {
 
 #' @export
 as.integer.Side = function(x) {
-  ifelse(x == "long", +1L, -1L)
+  dplyr::case_when(is.na(x) ~ NA_integer_,
+                   x == "long" ~ +1L,
+                   x == "short" ~ -1L )
 }
 
 # Polarity type ----------------------------------------------------------
@@ -63,7 +75,7 @@ LONG_POLARITY = structure(+1L, class = "Polarity")
 
 #' @export
 Polarity = function(x) {
-  fatalIfNot(all(x %in% c(-1, +1)), "Invalid Polarity")
+  fatalIfNot(all(x %in% c(-1, +1, NA)), "Invalid Polarity values")
   structure(as.integer(x), class = "Polarity")
 }
 
@@ -78,19 +90,32 @@ as.Polarity.Polarity = function(x) x
 
 #' @export
 as.Polarity.numeric = function(x) {
-  fatalIfNot(all(x %in% c(-1, +1)), "Cannot convert numeric to Polarity")
   Polarity(x)
+
+  # fatalIfNot(all(x %in% c(-1, +1, NA)),
+  #            "Numeric Polarity values must be +1, -1, or NA" )
+  # Polarity(x)
 }
 
 #' @export
 as.Polarity.character = function(x) {
-  fatalIfNot(all(x %in% c("long", "short")), "Cannot convert character to Polarity")
-  Polarity(ifelse(x == "long", +1L, -1L))
+  fatalIfNot(all(x %in% c("long", "short", NA)),
+             "Character Polarity values must be 'long', 'short', or NA" )
+
+  (dplyr::case_when(is.na(x) ~ NA_integer_,
+                    x == "long" ~ +1L,
+                    x == "short" ~ -1L )
+    |> as.Polarity() )
 }
 
 #' @export
 as.Polarity.Side = function(x) {
-  Polarity(ifelse(x == "long", +1L, -1L))
+  as.Polarity.character(x)
+
+  # (dplyr::case_when(is.na(x) ~ NA_integer_,
+  #                   x == "long" ~ +1L,
+  #                   x == "short" ~ -1L )
+  #  |> as.Polarity() )
 }
 
 #' @export
@@ -115,7 +140,7 @@ TONE_LEVELS = c(BEAR_MKT, BULL_MKT)
 #' @export
 Tone = function(x) {
   fatalIfNot(all(x %in% TONE_LEVELS),
-            "Invalid Tone value" )
+             "Invalid Tone value" )
   structure(x, class = "Tone")
 }
 
