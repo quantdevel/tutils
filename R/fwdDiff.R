@@ -9,9 +9,9 @@
 #' @export
 #'
 fwdDiff = function(x, lag, na.pad=TRUE) {
-  ensure(x, is.zoo)
-  ensure(lag, is.numeric)
-  ensure(na.pad, is.logical)
+  decl(x, is.zoo)
+  decl(lag, is.numeric)
+  decl(na.pad, is.logical)
 
   stopifnot(lag >= 0)
 

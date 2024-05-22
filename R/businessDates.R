@@ -13,7 +13,7 @@ START_OF_TIME = as.Date("1987-01-01")
 #' @export
 #'
 isBusinessDay = function(dates) {
-  ensure(dates, is.Date)
+  decl(dates, lubridate::is.Date)
 
   as.logical(RQuantLib::isBusinessDay(DEFAULT_CALENDAR, dates=dates))
 }
@@ -28,10 +28,10 @@ isBusinessDay = function(dates) {
 #' @export
 #'
 businessCalendar = function(from=START_OF_TIME, to=Sys.Date()) {
-  ensure(from, is.numeric(.) || is.Date(.))
-  ensure(to, is.Date)
+  decl(from, is.numeric %or% lubridate::is.Date)
+  decl(to, lubridate::is.Date)
 
-  if (is.Date(from)) {
+  if (lubridate::is.Date(from)) {
     start <- from
   } else {
     start <- subBusinessDays(to, from)
@@ -48,7 +48,7 @@ businessCalendar = function(from=START_OF_TIME, to=Sys.Date()) {
 #' @export
 #'
 nearestBusinessDay = function(dates = Sys.Date()) {
-  declare(dates="Date")
+  decl(dates, lubridate::is.Date)
   RQuantLib::adjust(calendar=DEFAULT_CALENDAR, dates=dates, bdc=2)
 }
 
@@ -97,7 +97,10 @@ thisTradingDay = function() {
 #' @export
 #'
 addBusinessTimeUnits = function(dates, n, timeUnit) {
-  declare(dates="Date", n="integer|numeric", timeUnit="integer|numeric")
+  decl(dates, lubridate::is.Date)
+  decl(n, is.numeric)
+  decl(timeUnit, is.numeric)
+
   RQuantLib::advance(calendar=DEFAULT_CALENDAR, dates=dates, n=n, timeUnit=timeUnit)
 }
 
@@ -129,7 +132,8 @@ nextBusinessDay = function(dates) addBusinessTimeUnits(dates, +1, 0)
 #' @export
 #'
 businessDaySeq = function(from, horizon) {
-  declare(from="Date", horizon="integer|numeric|Date")
+  decl(from, lubridate::is.Date)
+  decl(horizon, is.numeric %or% lubridate::is.Date)
 
   if (is.numeric(horizon)) {
     stopifnot(horizon > 0)
@@ -165,7 +169,7 @@ businessDaySeq = function(from, horizon) {
 #' @export
 #'
 fillBusinessDays = function(dates) {
-  declare(dates="Date")
+  decl(dates, lubridate::is.Date)
 
   stopifnot(any(!is.na(dates)))  # Must have at least one known date
 

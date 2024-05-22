@@ -27,8 +27,8 @@
 #' @export
 #'
 condProb = function(succ, trials = NULL, ...) {
-  ensure(succ, is.logical)
-  ensure(trials, is.null(.) || is.logical(.))
+  decl(succ, is.logical)
+  decl(trials, is.null %or% is.logical)
 
   if (is.null(trials)) {
     nSucc = sum(succ, na.rm = TRUE)

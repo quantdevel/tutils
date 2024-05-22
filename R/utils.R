@@ -53,9 +53,6 @@ do.cbind = function(lst) do.call(cbind, lst)
 #'
 do.rbind = function(lst) do.call(rbind, lst)
 
-#' @export
-is.Date = function(d) inherits(d, "Date")
-
 #'
 #'  Test for non-NA
 #'

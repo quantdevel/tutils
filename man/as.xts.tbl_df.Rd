@@ -4,7 +4,7 @@
 \alias{as.xts.tbl_df}
 \title{Convert a tibble to xts}
 \usage{
-\method{as.xts}{tbl_df}(x, index = NULL)
+as.xts.tbl_df(x, index = NULL)
 }
 \arguments{
 \item{x}{A tibble to be converted to xts}

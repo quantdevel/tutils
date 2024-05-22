@@ -22,7 +22,7 @@
 #' @export
 #'
 xtsToRegressionData = function(x) {
-    declare(x="xts")
+    decl(x, xts::is.xts)
 
     dfrm = data.frame(date = index(x),
                       as.data.frame(x) )
@@ -41,7 +41,7 @@ xtsToRegressionData = function(x) {
 #' @export
 #'
 xtsToDataFrame = function(x) {
-    declare(x="xts")
+    decl(x, xts::is.xts)
 
     data.frame(
         date=index(x),
@@ -59,7 +59,7 @@ xtsToDataFrame = function(x) {
 #' @export
 #'
 dataFrameToXts = function(dfrm) {
-    declare(dfrm="data.frame")
+    decl(dfrm, is.data.frame)
 
     stopifnot("date" %in% colnames(dfrm))
 

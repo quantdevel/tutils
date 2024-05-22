@@ -11,9 +11,9 @@
 #'
 quantileCI = function(y, prob, conf.level=0.95,
                       method="binomial", na.rm=FALSE, ...) {
-  declare(y="numeric")
-  declare(prob="numeric")
-  declare(conf.level="numeric")
+  decl(y, is.numeric)
+  decl(prob, is.numeric)
+  decl(conf.level, is.numeric)
 
   if (na.rm) {
     y = y[!is.na(y)]
@@ -71,8 +71,8 @@ quantileCI.jack = function(y, prob, conf.level) {
 #' @export
 #'
 medianCI = function(y, conf.level=0.95, method="binomial", na.rm=FALSE) {
-  declare(y="numeric")
-  declare(conf.level="numeric")
+  decl(y, is.numeric)
+  decl(conf.level, is.numeric)
 
   if (na.rm) {
     y = y[!is.na(y)]

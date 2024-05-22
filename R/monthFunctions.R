@@ -24,7 +24,7 @@ monthFactor = function(x, ...) UseMethod("monthFactor", x)
 #' @rdname monthFactor
 #' @export
 monthFactor.Date = function(d) {
-  ## ensure(d, lubridate::is.Date)
+  ## decl(d, lubridate::is.Date)
 
   factor(base::months(d, abbreviate=TRUE), levels = MONTH_LEVELS)
 }
@@ -32,7 +32,7 @@ monthFactor.Date = function(d) {
 #' @rdname monthFactor
 #' @export
 monthFactor.zoo = function(z) {
-  ensure(z, zoo::is.zoo(.))
+  decl(z, zoo::is.zoo)
 
   monthFactor(zoo::index(z))
 }

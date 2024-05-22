@@ -14,7 +14,7 @@
 #' @export
 #'
 proj_source = function(files = NULL, ...) {
-  ensure(files, is.null(.) || is.character(.))
+  decl(files, is.null %or% is.character)
 
   dir = here::here("R")
   if (is.null(files)) {

@@ -3,12 +3,10 @@
 #'
 #' @param x A tibble to be converted to xts
 #' @param index (character)
-#'
-#' @importFrom xts as.xts
 #' @export
 #'
 as.xts.tbl_df = function(x, index = NULL) {
-  ensure(index, is.null(.) || is.character(.))
+  decl(index, is.null %or% is.character)
 
   if (is.null(index)) {
     date_cand <- intersect(colnames(x),
@@ -27,3 +25,6 @@ as.xts.tbl_df = function(x, index = NULL) {
   pos <- which(colnames(x) == index)
   xts::xts(x[ , -pos], x[ , pos, drop = TRUE])
 }
+
+# EXPERIMENT: REMOVED
+# @importFrom xts as.xts

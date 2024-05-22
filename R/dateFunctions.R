@@ -7,7 +7,7 @@
 #' @export
 #'
 yyyymmddToDate = function(yyyymmdd) {
-  declare(yyyymmdd="character|integer|numeric")
+  decl(yyyymmdd, is.character %or% is.numeric)
 
   yyyymmdd = as.integer(yyyymmdd)
   as.Date(ISOdate((yyyymmdd %/% 10000),

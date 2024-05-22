@@ -19,7 +19,7 @@
 #'   In any event, both functions halt on type errors.
 #' @export
 #'
-declare = function(..., ..env = parent.frame()) {
+declare_OBSOLETE = function(..., ..env = parent.frame()) {
 
     parseTypes = function(s) {
         if (!is.character(s)) stop("Invalid type specification: ", str(s))

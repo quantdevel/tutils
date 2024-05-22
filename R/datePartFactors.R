@@ -10,7 +10,8 @@
 #' @export
 #'
 calendarDayFactor = function(z) {
-    declare(z="zoo")
+    decl(z, zoo::is.zoo)
+
 	ydays <- sapply(index(z), function(x) as.POSIXlt(x)$yday)
     factor(
         ydays,
@@ -25,7 +26,7 @@ calendarDayFactor = function(z) {
 #' @export
 #'
 monthFactor = function(z) {
-  declare(z="zoo")
+  decl(z, zoo::is.zoo)
   
 	factor(
 		months(index(z), abbreviate=TRUE),
@@ -44,7 +45,7 @@ monthFactor = function(z) {
 #' @export
 #'
 quarterFactor = function(z) {
-    declare(z="zoo")
+    decl(z, zoo::is.zoo)
   
     factor(
         quarters(index(z)),

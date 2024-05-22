@@ -18,9 +18,9 @@
 #' @export
 #'
 tauWindow = function(x, from, to) {
-  declare(x="xts")
-  declare(from="integer|numeric|Date|NULL")
-  declare(to="Date|NULL")
+  decl(x, xts::is.xts)
+  decl(from, is.null %or% is.numeric %or% lubridate::is.Date)
+  decl(to, is.null %or% lubridate::is.Date)
 
   if (non.null(to)) {
     x = x[index(x) <= to, ]

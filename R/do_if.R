@@ -8,7 +8,6 @@
 #'   if NULL and condition is FALSE, data is left unchanged
 #' @return Output of appropriate .then/.else call
 #' @export
-#' @importFrom rlang as_closure
 #'
 do_if <- function(.data, condition, .then, .else = NULL) {
   if (condition) {

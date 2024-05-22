@@ -10,10 +10,10 @@
 #'  
 safeAverage = function(x, average="mean", conf.level=0.95,
                        na.rm=TRUE) {
-  declare(x="numeric")
-  declare(average="character")
-  declare(conf.level="numeric")
-  declare(na.rm="logical")
+  decl(x, is.numeric)
+  decl(average, is.character)
+  decl(conf.level, is.numeric)
+  decl(na.rm, is.logical)
   
   if (na.rm) {
     x = x[!is.na(x)]

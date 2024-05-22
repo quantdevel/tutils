@@ -25,7 +25,7 @@
 #' @export
 #'
 proj_library = function(dir = NULL, ...) {
-  ensure(dir, is.null(.) || is.character(.))
+  decl(dir, is.null %or% is.character)
 
   ENV_NAME = "proj_library"
 
