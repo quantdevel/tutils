@@ -104,22 +104,66 @@ addBusinessTimeUnits = function(dates, n, timeUnit) {
   RQuantLib::advance(calendar=DEFAULT_CALENDAR, dates=dates, n=n, timeUnit=timeUnit)
 }
 
-#' @export addBusinessDays subBusinessDays
-#' @export addBusinessWeeks subBusinessWeeks
-#' @export addBusinessMonths subBusinessMonths
-#' @export addBusinessYears subBusinessYears
+#'
+#'  Business unit date arithmetic
+#'
+#'  Given a vector of dates, add or subtract
+#'  business date units from it: days, weeks, months, or years.
+#'
+#' @param dates Vector of Date objects
+#' @param n Number ov days, weeks, months, or years
+#'   to either add or subtract (integer)
+#' @name bus-date-arith
+#'
+NULL
 
+#' @rdname bus-date-arith
+#' @export
 addBusinessDays = function(dates, n) addBusinessTimeUnits(dates, n, 0)
+
+#' @rdname bus-date-arith
+#' @export
 subBusinessDays = function(dates, n) addBusinessTimeUnits(dates, -(n), 0)
+
+#' @rdname bus-date-arith
+#' @export
 addBusinessWeeks = function(dates, n) addBusinessTimeUnits(dates, n, 1)
+
+#' @rdname bus-date-arith
+#' @export
 subBusinessWeeks = function(dates, n) addBusinessTimeUnits(dates, -(n), 1)
+
+#' @rdname bus-date-arith
+#' @export
 addBusinessMonths = function(dates, n) addBusinessTimeUnits(dates, n, 2)
+
+#' @rdname bus-date-arith
+#' @export
 subBusinessMonths = function(dates, n) addBusinessTimeUnits(dates, -(n), 2)
+
+#' @rdname bus-date-arith
+#' @export
 addBusinessYears = function(dates, n) addBusinessTimeUnits(dates, n, 3)
+
+#' @rdname bus-date-arith
+#' @export
 subBusinessYears = function(dates, n) addBusinessTimeUnits(dates, -(n), 3)
 
-#' @export prevBusinessDay nextBusinessDay
+#'
+#'  Previous or next business day
+#'
+#' @param dates Vector of Date objects
+#' @returns \code{prevBusinessDay} returns the vector of
+#'   corresponding previous business days.
+#'
+#'   \code{nextBusinessDay} returns the vector of
+#'   corresponding next business days.
+#' @export
+#'
 prevBusinessDay = function(dates) addBusinessTimeUnits(dates, -1, 0)
+
+#' @rdname prevBusinessDay
+#' @export
 nextBusinessDay = function(dates) addBusinessTimeUnits(dates, +1, 0)
 
 #'
