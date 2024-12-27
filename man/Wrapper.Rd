@@ -35,12 +35,13 @@ extracting the enclosed value (logical)}
 Return a list with class \code{Wrapper}
 }
 \description{
-The \code{wrap} functions will, uh, wrap a value inside a container object,
- possibly with some messages.
+The \code{wrap} function wraps a value inside a special container object,
+ possibly wrapping some messages.
 }
 \details{
-The \code{unwrap} function extracts the value from the container,
- possibly printing the messages, if any.
+The \code{unwrap} function extracts the value from the container.
+ Unless \code{quiet = TRUE}, it will print the wrapped, associated messages, if any,
+ before returning that extracted value.
 }
 \examples{
 w <- wrap(pi, messages = "Help me!")
