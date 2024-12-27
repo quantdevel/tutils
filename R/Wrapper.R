@@ -23,12 +23,15 @@
 #' # Extract the wrapped value and print the wrapped messages
 #' unwrap(w, quiet = FALSE)
 #'
-#'
 Wrapper = function(value, messages, ...) {
   (append(list(value = value, messages = messages),
           list(...) )
    |> structure(class = "Wrapper") )
 }
+
+#' @rdname Wrapper
+#' @export
+is.Wrapper = function(x) inherits(x, "Wrapper")
 
 #' @rdname Wrapper
 #' @export

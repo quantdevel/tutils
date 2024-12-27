@@ -2,6 +2,7 @@
 % Please edit documentation in R/Wrapper.R
 \name{Wrapper}
 \alias{Wrapper}
+\alias{is.Wrapper}
 \alias{wrap}
 \alias{unwrap}
 \alias{unwrap.default}
@@ -9,6 +10,8 @@
 \title{Wrap a value and optional messages}
 \usage{
 Wrapper(value, messages, ...)
+
+is.Wrapper(x)
 
 wrap(value, messages = list(), ...)
 
@@ -47,6 +50,5 @@ unwrap(w)
 
 # Extract the wrapped value and print the wrapped messages
 unwrap(w, quiet = FALSE)
-
 
 }
