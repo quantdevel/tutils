@@ -9,7 +9,7 @@
 \alias{unwrap.Wrapper}
 \title{Wrap a value and optional messages}
 \usage{
-Wrapper(value, errors = list, warnings = list(), info = list(), ...)
+Wrapper(value, errors = list(), warnings = list(), info = list(), ...)
 
 is.Wrapper(x)
 

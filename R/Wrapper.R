@@ -26,7 +26,7 @@
 #' # Extract the wrapped value and print the wrapped messages
 #' unwrap(w, quiet = FALSE)
 #'
-Wrapper = function(value, errors = list, warnings = list(), info = list(), ...) {
+Wrapper = function(value, errors = list(), warnings = list(), info = list(), ...) {
   (append(list(value = value,
                errors = errors,
                warnings = warnings,
