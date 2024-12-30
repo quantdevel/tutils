@@ -9,14 +9,16 @@
 #'  before returning that extracted value.
 #'
 #' @param x A value to be wrapped
-#' @param messages List of associated messages (list, optional)
+#' @param errors List of error messages (list, optional)
+#' @param warnings List of warning messages (list, optional)
+#' @param info List of informational messages (list, optional)
 #' @param element (character)
 #' @param quiet If TRUE, print the enclosed messages, if any, before
 #'   extracting the enclosed value (logical)
 #' @returns Return a list with class \code{Wrapper}
 #' @export
 #' @examples
-#' w <- wrap(pi, messages = "Help me!")
+#' w <- wrap(pi, error = "Help me!", warnings = "Just chillin'")
 #'
 #' # Extract the wrapped value
 #' unwrap(w)
@@ -24,8 +26,11 @@
 #' # Extract the wrapped value and print the wrapped messages
 #' unwrap(w, quiet = FALSE)
 #'
-Wrapper = function(value, messages, ...) {
-  (append(list(value = value, messages = messages),
+Wrapper = function(value, errors = list, warnings = list(), info = list(), ...) {
+  (append(list(value = value,
+               errors = errors,
+               warnings = warnings,
+               info = info),
           list(...) )
    |> structure(class = "Wrapper") )
 }
@@ -36,8 +41,8 @@ is.Wrapper = function(x) inherits(x, "Wrapper")
 
 #' @rdname Wrapper
 #' @export
-wrap = function(value, messages = list(), ...) {
-  Wrapper(value = value, messages = messages, ...)
+wrap = function(value, ...) {
+  Wrapper(value = value, ...)
 }
 
 #' @rdname Wrapper
@@ -51,8 +56,10 @@ unwrap.default = function(x, ...) x
 #' @rdname Wrapper
 #' @export
 unwrap.Wrapper = function(x, element = NULL, quiet = TRUE) {
-  if (!quiet && length(x$messages) > 0) {
-    purrr::walk(x$messages, .f = tutils::catln)
+  if (!quiet) {
+    purrr::walk(x$errors, .f = \(.) catln("Error:", .))
+    purrr::walk(x$warnings, .f = \(.) catln("Warning:", .))
+    purrr::walk(x$info, .f = tutils::catln)
   }
   if (is.null(element)) {
     x$value

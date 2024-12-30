@@ -9,11 +9,11 @@
 \alias{unwrap.Wrapper}
 \title{Wrap a value and optional messages}
 \usage{
-Wrapper(value, messages, ...)
+Wrapper(value, errors = list, warnings = list(), info = list(), ...)
 
 is.Wrapper(x)
 
-wrap(value, messages = list(), ...)
+wrap(value, ...)
 
 unwrap(x, ...)
 
@@ -22,7 +22,11 @@ unwrap(x, ...)
 \method{unwrap}{Wrapper}(x, element = NULL, quiet = TRUE)
 }
 \arguments{
-\item{messages}{List of associated messages (list, optional)}
+\item{errors}{List of error messages (list, optional)}
+
+\item{warnings}{List of warning messages (list, optional)}
+
+\item{info}{List of informational messages (list, optional)}
 
 \item{x}{A value to be wrapped}
 
@@ -44,7 +48,7 @@ The \code{unwrap} function extracts the value from the container.
  before returning that extracted value.
 }
 \examples{
-w <- wrap(pi, messages = "Help me!")
+w <- wrap(pi, error = "Help me!", warnings = "Just chillin'")
 
 # Extract the wrapped value
 unwrap(w)
