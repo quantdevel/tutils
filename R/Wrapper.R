@@ -1,21 +1,25 @@
 #'
 #'  Wrap a value and optional messages
 #'
-#'  The \code{wrap} function wraps a value inside a special container object,
-#'  possibly wrapping some messages.
+#'  The \code{wrap} function wraps a value inside a \code{Wrapper} container,
+#'  possibly incorporating wrapped messages, too.
 #'
 #'  The \code{unwrap} function extracts the value from the container.
 #'  Unless \code{quiet = TRUE}, it will print the wrapped, associated messages, if any,
-#'  before returning that extracted value.
+#'  before returning that extracted value (so the message are not ignored).
+#'
+#'  As a convenience to the caller, the errors, warnings, and info
+#'  may be supplied as character vectors (or even NULL), but they will be coerced to lists
+#'  and stored as lists.
 #'
 #' @param x A value to be wrapped
 #' @param errors List of error messages (list, optional)
 #' @param warnings List of warning messages (list, optional)
 #' @param info List of informational messages (list, optional)
-#' @param element (character)
 #' @param quiet If TRUE, print the enclosed messages, if any, before
 #'   extracting the enclosed value (logical)
-#' @returns Return a list with class \code{Wrapper}
+#' @returns \code{Wrapper} and \code{wrap} eturn a list with class \code{Wrapper}.
+#'   \code{unwrap} returns the value wrapped inside the Wrapper container.
 #' @export
 #' @examples
 #' w <- wrap(pi, error = "Help me!", warnings = "Just chillin'")
@@ -27,6 +31,10 @@
 #' unwrap(w, quiet = FALSE)
 #'
 Wrapper = function(value, errors = list(), warnings = list(), info = list(), ...) {
+  errors <- as.list(errors)       # in case 'errors' is.character or NULL
+  warnings <- as.list(warnings)   # ditto
+  info <- as.list(info)           # ditto
+
   (append(list(value = value,
                errors = errors,
                warnings = warnings,
@@ -55,21 +63,12 @@ unwrap.default = function(x, ...) x
 
 #' @rdname Wrapper
 #' @export
-unwrap.Wrapper = function(x, element = NULL, quiet = TRUE) {
+unwrap.Wrapper = function(x, quiet = TRUE) {
   if (!quiet) {
     purrr::walk(x$errors, .f = \(.) catln("Error:", .))
     purrr::walk(x$warnings, .f = \(.) catln("Warning:", .))
     purrr::walk(x$info, .f = tutils::catln)
   }
-  if (is.null(element)) {
-    x$value
-  } else {
-    if (element %in% names(x)) {
-      x[[element]]
-    } else {
-      tutils::tau_warn("Wrapper does not contain element '", element,
-                       "', using NULL instead", sep = "" )
-      NULL
-    }
-  }
+
+  return(x$value)
 }

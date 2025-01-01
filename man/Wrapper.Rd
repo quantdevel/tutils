@@ -19,7 +19,7 @@ unwrap(x, ...)
 
 \method{unwrap}{default}(x, ...)
 
-\method{unwrap}{Wrapper}(x, element = NULL, quiet = TRUE)
+\method{unwrap}{Wrapper}(x, quiet = TRUE)
 }
 \arguments{
 \item{errors}{List of error messages (list, optional)}
@@ -30,22 +30,25 @@ unwrap(x, ...)
 
 \item{x}{A value to be wrapped}
 
-\item{element}{(character)}
-
 \item{quiet}{If TRUE, print the enclosed messages, if any, before
 extracting the enclosed value (logical)}
 }
 \value{
-Return a list with class \code{Wrapper}
+\code{Wrapper} and \code{wrap} eturn a list with class \code{Wrapper}.
+  \code{unwrap} returns the value wrapped inside the Wrapper container.
 }
 \description{
-The \code{wrap} function wraps a value inside a special container object,
- possibly wrapping some messages.
+The \code{wrap} function wraps a value inside a \code{Wrapper} container,
+ possibly incorporating wrapped messages, too.
 }
 \details{
 The \code{unwrap} function extracts the value from the container.
  Unless \code{quiet = TRUE}, it will print the wrapped, associated messages, if any,
- before returning that extracted value.
+ before returning that extracted value (so the message are not ignored).
+
+ As a convenience to the caller, the errors, warnings, and info
+ may be supplied as character vectors (or even NULL), but they will be coerced to lists
+ and stored as lists.
 }
 \examples{
 w <- wrap(pi, error = "Help me!", warnings = "Just chillin'")
