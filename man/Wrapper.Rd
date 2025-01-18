@@ -9,7 +9,14 @@
 \alias{unwrap.Wrapper}
 \title{Wrap a value and optional messages}
 \usage{
-Wrapper(value, errors = list(), warnings = list(), info = list(), ...)
+Wrapper(
+  value,
+  errors = list(),
+  warnings = list(),
+  info = list(),
+  include = list(),
+  ...
+)
 
 is.Wrapper(x)
 
@@ -27,6 +34,9 @@ unwrap(x, ...)
 \item{warnings}{List of warning messages (list, optional)}
 
 \item{info}{List of informational messages (list, optional)}
+
+\item{include}{A list of already-wrapped objects, who's
+errors, warnings, and infos should be included in this wrapper}
 
 \item{x}{A value to be wrapped}
 
@@ -58,5 +68,8 @@ unwrap(w)
 
 # Extract the wrapped value and print the wrapped messages
 unwrap(w, quiet = FALSE)
+
+# Piggy back the error messages
+wrap(pi, error = "Pi error", include = list( wrap("foo", error = "Foo error") ))
 
 }
