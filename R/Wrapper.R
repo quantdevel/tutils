@@ -58,21 +58,54 @@ Wrapper = function(value, errors = list(), warnings = list(), info = list(),
 #' @export
 is.Wrapper = function(x) inherits(x, "Wrapper")
 
-#' @rdname Wrapper
+# wrap function ----
+
+#'
+#'  Wrap an object
+#'
+#' @seealso \link{Wrapper} object class
+#' @param value The value to be wrapped
+#' @param w A Wrapper object whose value will be wrapped
+#'   and whose messages will be incorporated into the Wrapper
+#' @returns Returns a Wrapper object
 #' @export
-wrap = function(value, ...) {
+#'
+wrap = function(x, ...) UseMethod("wrap", x)
+
+#' @export
+wrap.default = function(value, ...) {
   Wrapper(value = value, ...)
 }
 
-#' @rdname Wrapper
 #' @export
+wrap.Wrapper = function(w, errors = list(), warnings = list(), info = list(),
+                        include = list(), ...) {
+  Wrapper(w$value,
+          errors = c(errors, w$errors),
+          warnings = c(warnings, w$warnings),
+          info = c(info, w$info),
+          include = include,
+          ... )
+}
+
+# unwrap function ----
+
+#'
+#'  Extract the value from a Wrapper object
+#'
+#' @param x Can be a Wrapper object or anything else
+#' @param quiet (boolean)
+#' @returns If x is a Wrapper object, its value is returned.
+#'   Otherwise, x is returned unchanged.
+#' @export
+#'
 unwrap = function(x, ...) UseMethod("unwrap", x)
 
-#' @rdname Wrapper
+#' @rdname unwrap
 #' @export
 unwrap.default = function(x, ...) x
 
-#' @rdname Wrapper
+#' @rdname unwrap
 #' @export
 unwrap.Wrapper = function(x, quiet = TRUE) {
   if (!quiet) {
@@ -82,4 +115,27 @@ unwrap.Wrapper = function(x, quiet = TRUE) {
   }
 
   return(x$value)
+}
+
+# Other unwrap() functions ----
+
+#' @export
+unwrapErrors = function(x) {
+  if (is.Wrapper(x) && length(x$errors) > 0) {
+    x$errors
+  }
+}
+
+#' @export
+unwrapWarnings = function(x) {
+  if (is.Wrapper(x) && length(x$warnings) > 0) {
+    x$warnings
+  }
+}
+
+#' @export
+unwrapInfo = function(x) {
+  if (is.Wrapper(x) && length(x$info) > 0) {
+    x$info
+  }
 }

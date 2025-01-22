@@ -3,10 +3,6 @@
 \name{Wrapper}
 \alias{Wrapper}
 \alias{is.Wrapper}
-\alias{wrap}
-\alias{unwrap}
-\alias{unwrap.default}
-\alias{unwrap.Wrapper}
 \title{Wrap a value and optional messages}
 \usage{
 Wrapper(
@@ -19,14 +15,6 @@ Wrapper(
 )
 
 is.Wrapper(x)
-
-wrap(value, ...)
-
-unwrap(x, ...)
-
-\method{unwrap}{default}(x, ...)
-
-\method{unwrap}{Wrapper}(x, quiet = TRUE)
 }
 \arguments{
 \item{errors}{List of error messages (list, optional)}
