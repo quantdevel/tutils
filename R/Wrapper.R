@@ -109,9 +109,9 @@ unwrap.default = function(x, ...) x
 #' @export
 unwrap.Wrapper = function(x, quiet = TRUE) {
   if (!quiet) {
-    purrr::walk(x$errors, .f = \(.) catln("Error:", .))
-    purrr::walk(x$warnings, .f = \(.) catln("Warning:", .))
-    purrr::walk(x$info, .f = tutils::catln)
+    purrr::walk(purrr::compact(x$errors), .f = \(.) catln("Error:", .))
+    purrr::walk(purrr::compact(x$warnings), .f = \(.) catln("Warning:", .))
+    purrr::walk(purrr::compact(x$info), .f = tutils::catln)
   }
 
   return(x$value)
