@@ -36,5 +36,5 @@ to either add or subtract (integer)}
 }
 \description{
 Given a vector of dates, add or subtract
- business date units from it: days, weeks, months, or years.
+business date units from it: days, weeks, months, or years.
 }

@@ -14,5 +14,5 @@ Same vector, with trailing NAs replaced by business days
 }
 \description{
 Given a vector of Dates with NAs at the end,
-    replace the NAs with business days
+replace the NAs with business days
 }

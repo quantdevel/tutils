@@ -4,12 +4,12 @@
 #' @param strings Vector of strings to be joined (character)
 #' @param max Number of strings before ellipsis (integer)
 #' @param tail Number of strings after the ellipsis (integer, optional)
-#' @param empty Returned if \code{strings} is empty (character)
-#' @returns All the \code{strings} pasted together, separated by commas,
-#'   up to a maximum of \code{max} strings;
-#'   if \code{strings} has more than \code{max} elements,
+#' @param empty Returned if `strings` is empty (character)
+#' @returns All the `strings` pasted together, separated by commas,
+#'   up to a maximum of `max` strings;
+#'   if `strings` has more than `max` elements,
 #'   the extra elements are replaced by an ellipsis.
-#'   If \code{strings} is empty, then \code{empty} is returned.
+#'   If `strings` is empty, then `empty` is returned.
 #' @export
 #' @examples
 #' smartEllipsis(c("tom", "dick", "harry", "peter"), 4)

@@ -1,7 +1,7 @@
 #'
 #'  Tau wrapper for read.csv()
 #'
-#'  This just calls \link{read.csv}, but it provides better defaults.
+#'  This just calls [read.csv], but it provides better defaults.
 #'
 #' @param file A connection or filename for the CSV file
 #' @param header Passed to read.csv(), defaults to TRUE

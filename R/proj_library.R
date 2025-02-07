@@ -13,14 +13,14 @@
 #'  Otherwise, the packages will be loaded into the wrong
 #'  place on the search list.
 #'
-#' @param dir Path of \code{R} directory;
-#'   NULL means use the \code{R} directory of the enclosing
+#' @param dir Path of `R` directory;
+#'   NULL means use the `R` directory of the enclosing
 #'   RStudio project (character)
-#' @param ... Passed to \code{source}
+#' @param ... Passed to `source`
 #' @return Nothing
-#' @seealso \link{proj_source} for sourcing project files
+#' @seealso [proj_source] for sourcing project files
 #'  into the global environment,
-#'  \link{detach} for removing the new environment
+#'  [detach] for removing the new environment
 #'  from the search path.
 #' @export
 #'

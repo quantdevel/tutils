@@ -7,9 +7,9 @@
 #'
 #' @param files Vector or list of files to source;
 #'   NULL means all *.R files (character)
-#' @param ... Passed to \code{source}
+#' @param ... Passed to `source`
 #' @return Nothing
-#' @seealso \link{proj_library} for sourcing project files
+#' @seealso [proj_library] for sourcing project files
 #'  into a new, attached environment.
 #' @export
 #'

@@ -11,7 +11,7 @@ on_off(b)
 }
 \value{
 Returns "on" if b is a single, defined boolean value that is TRUE;
-   "off" otherwise
+"off" otherwise
 }
 \description{
 On or off?

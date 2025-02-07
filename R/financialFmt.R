@@ -6,7 +6,7 @@
 #' @param accuracy Accuracy of formatted result;
 #'   e.g., 1 for rounding to nearest dollar, 0.01 for rounding to nearest penny
 #'   (numeric, optional)
-#' @param ... Passed to \code{financialFmr}
+#' @param ... Passed to `financialFmr`
 #' @return A string
 #' @export
 #'

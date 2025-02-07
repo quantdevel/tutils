@@ -17,7 +17,7 @@ OBSOLETE. Replaced by dplyr::bind_cols.
 }
 \details{
 This is handy with the pipe operator:
- aList |> lapply(aFunction) |> do.cbind()
+aList |> lapply(aFunction) |> do.cbind()
 }
 \seealso{
 \link{do.rbind}

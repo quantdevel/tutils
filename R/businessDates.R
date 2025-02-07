@@ -22,7 +22,7 @@ isBusinessDay = function(dates) {
 #'  Generate vector of business dates
 #'
 #' @param from Date or numeric;
-#'   numeric is number of days before \code{to} date
+#'   numeric is number of days before `to` date
 #' @param to Date
 #' @return Vector of Date objects
 #' @export
@@ -153,10 +153,10 @@ subBusinessYears = function(dates, n) addBusinessTimeUnits(dates, -(n), 3)
 #'  Previous or next business day
 #'
 #' @param dates Vector of Date objects
-#' @returns \code{prevBusinessDay} returns the vector of
+#' @returns `prevBusinessDay` returns the vector of
 #'   corresponding previous business days.
 #'
-#'   \code{nextBusinessDay} returns the vector of
+#'   `nextBusinessDay` returns the vector of
 #'   corresponding next business days.
 #' @export
 #'

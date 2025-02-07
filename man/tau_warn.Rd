@@ -17,7 +17,7 @@ tau_warn(..., sep = " ", call. = FALSE, immediate. = TRUE)
 }
 \value{
 Returns the warning message as a character string, invisibly,
-  but mostly called for its side effect
+but mostly called for its side effect
 }
 \description{
 This is like base::warning(), but friendlier.

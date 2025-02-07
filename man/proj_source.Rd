@@ -17,10 +17,10 @@ Nothing
 }
 \description{
 This will source all *.R files in the R subdirectory
- of the current project.
- Their contents are loaded into the global environment.
+of the current project.
+Their contents are loaded into the global environment.
 }
 \seealso{
 \link{proj_library} for sourcing project files
- into a new, attached environment.
+into a new, attached environment.
 }

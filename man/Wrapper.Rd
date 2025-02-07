@@ -33,20 +33,20 @@ extracting the enclosed value (logical)}
 }
 \value{
 \code{Wrapper} and \code{wrap} eturn a list with class \code{Wrapper}.
-  \code{unwrap} returns the value wrapped inside the Wrapper container.
+\code{unwrap} returns the value wrapped inside the Wrapper container.
 }
 \description{
 The \code{wrap} function wraps a value inside a \code{Wrapper} container,
- possibly incorporating wrapped messages, too.
+possibly incorporating wrapped messages, too.
 }
 \details{
 The \code{unwrap} function extracts the value from the container.
- Unless \code{quiet = TRUE}, it will print the wrapped, associated messages, if any,
- before returning that extracted value (so the message are not ignored).
+Unless \code{quiet = TRUE}, it will print the wrapped, associated messages, if any,
+before returning that extracted value (so the message are not ignored).
 
- As a convenience to the caller, the errors, warnings, and info
- may be supplied as character vectors (or even NULL), but they will be coerced to lists
- and stored as lists.
+As a convenience to the caller, the errors, warnings, and info
+may be supplied as character vectors (or even NULL), but they will be coerced to lists
+and stored as lists.
 }
 \examples{
 w <- wrap(pi, error = "Help me!", warnings = "Just chillin'")

@@ -11,15 +11,15 @@ kadane(v)
 }
 \value{
 A one-row data frame with columns
-  \itemize{
-    \item \code{Sum} - sum of the subvector's elements
-    \item \code{Start} - starting index of the subvector
-    \item \code{End} - ending index of the subvector
-  }
+\itemize{
+\item \code{Sum} - sum of the subvector's elements
+\item \code{Start} - starting index of the subvector
+\item \code{End} - ending index of the subvector
+}
 }
 \description{
 Finds the contiguous subvector with the
- largest sum among all the contiguous subvectors of \code{v}.
+largest sum among all the contiguous subvectors of \code{v}.
 }
 \details{
 Taken from https://tomaztsql.wordpress.com/2022/03/28/little-useless-useful-r-functions-kadanes-algorithm/

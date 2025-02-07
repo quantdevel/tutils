@@ -16,9 +16,9 @@ The greatest common divisor of \code{a} and \code{b}
 }
 \description{
 This is used by the Intermarket Spread objects
- to find the largest, common contract size.
+to find the largest, common contract size.
 }
 \seealso{
 Algorithm is descibed on
-  \href{ https://en.wikipedia.org/wiki/Euclidean_algorithm}{Wikipedia}
+\href{https://en.wikipedia.org/wiki/Euclidean_algorithm}{Wikipedia}
 }

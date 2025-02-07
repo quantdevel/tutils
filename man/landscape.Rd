@@ -14,5 +14,5 @@ The input (\code{x}) in landscape orientation
 }
 \description{
 This is handy for forcing a matrix or data frame
- into landscape orientation prior to printing.
+into landscape orientation prior to printing.
 }

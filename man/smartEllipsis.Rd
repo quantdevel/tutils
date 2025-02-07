@@ -17,10 +17,10 @@ smartEllipsis(strings, max = 2, tail = 1, empty = "None")
 }
 \value{
 All the \code{strings} pasted together, separated by commas,
-  up to a maximum of \code{max} strings;
-  if \code{strings} has more than \code{max} elements,
-  the extra elements are replaced by an ellipsis.
-  If \code{strings} is empty, then \code{empty} is returned.
+up to a maximum of \code{max} strings;
+if \code{strings} has more than \code{max} elements,
+the extra elements are replaced by an ellipsis.
+If \code{strings} is empty, then \code{empty} is returned.
 }
 \description{
 Employ an ellipsis, if necessary

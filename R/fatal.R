@@ -1,10 +1,10 @@
 #'
 #' Report or test a fatal condition
 #'
-#' @param ... Passed to \code{cat}
-#' @param cond Boolean expression that must be FALSE (\code{fatalIf})
-#'   or must be TRUE (\code{fatalIfNot}), otherwise a \code{stop} error is signalled
-#' @param sep Separator, passed to \code{cat} (character)
+#' @param ... Passed to `cat`
+#' @param cond Boolean expression that must be FALSE (`fatalIf`)
+#'   or must be TRUE (`fatalIfNot`), otherwise a `stop` error is signalled
+#' @param sep Separator, passed to `cat` (character)
 #' @param caller Name of calling function, defaults to name in caller's stack frame (character)
 #' @export
 #'

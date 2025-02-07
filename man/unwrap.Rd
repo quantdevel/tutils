@@ -19,7 +19,7 @@ unwrap(x, ...)
 }
 \value{
 If x is a Wrapper object, its value is returned.
-  Otherwise, x is returned unchanged.
+Otherwise, x is returned unchanged.
 }
 \description{
 Extract the value from a Wrapper object

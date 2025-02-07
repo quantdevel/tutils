@@ -3,26 +3,24 @@
 #'
 #'  This returns the conditional probability: Pr(succ | trial).
 #'
-#'  Without the \code{trials} argument, this becomes
+#'  Without the `trials` argument, this becomes
 #'  a simple probability calculation.
 #'
 #'  In any event, the output include lower and upper
 #'  confidence bounds.
 #'
-#' @param succ Vector where \code{succ[i]} is \code{TRUE}
-#'   if trial \code{i} succeeded (logical)
-#' @param trials Mask indicating with elements of \code{succ}
+#' @param succ Vector where `succ[i]` is `TRUE`
+#'   if trial `i` succeeded (logical)
+#' @param trials Mask indicating with elements of `succ`
 #'   are the relevent trials; NULL means all elements are relevent
 #'   (logical)
-#' @param ... Passed to \code{prop.test} function
-#'   (e.g., \code{conf.level} or \code{alternative})
+#' @param ... Passed to `prop.test` function
+#'   (e.g., `conf.level` or `alternative`)
 #'
 #' @return Returns a tibble with three columns
-#'   \itemize{
-#'     \item CondProb - conditional probability
-#'     \item Low - lower limit of confidence interval
-#'     \item High - upper limit of confidence interval
-#'  }
+#' * `CondProb` - conditional probability
+#' * `Low` - lower limit of confidence interval
+#' * `High` - upper limit of confidence interval
 #'
 #' @export
 #'

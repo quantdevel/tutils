@@ -14,5 +14,5 @@ First element of x
 }
 \description{
 Returns first element of argument.
- Stops if argument does not have exactly one element.
+Stops if argument does not have exactly one element.
 }

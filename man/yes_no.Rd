@@ -11,7 +11,7 @@ yes_no(b)
 }
 \value{
 Returns "yes" if b is a single, defined boolean value that is TRUE;
-   "no" otherwise
+"no" otherwise
 }
 \description{
 Yes or no?

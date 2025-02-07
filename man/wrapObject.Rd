@@ -19,8 +19,8 @@ wrapObject(df, className, required = NULL, optional = NULL, cleanse = FALSE)
 }
 \value{
 The input data frame, converted to a tibble, possibly
-  cleansed of extraneous columns (\code{cleanse = TRUE}),
-  and with a class attribute given by \code{className}.
+cleansed of extraneous columns (\code{cleanse = TRUE}),
+and with a class attribute given by \code{className}.
 }
 \description{
 Wrap a data frame to create an object instance

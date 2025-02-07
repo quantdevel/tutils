@@ -17,7 +17,7 @@ OBSOLETE. Replaced by dplyr::bind_rows.
 }
 \details{
 This is handy with the pipe operator:
- alist |> lapply(aFunction) |> do.rbind()
+alist |> lapply(aFunction) |> do.rbind()
 }
 \seealso{
 \link{do.cbind}

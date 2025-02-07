@@ -1,11 +1,11 @@
 #'
 #'  Smart windowing function for time series
 #'
-#'  This function is a lot like \link{window.zoo},
-#'  but smarter because \code{from} can be a number,
+#'  This function is a lot like [window.zoo],
+#'  but smarter because `from` can be a number,
 #'  meaning that many data points.
 #'
-#'  If either \code{from} or \code{to} is NULL,
+#'  If either `from` or `to` is NULL,
 #'  then data is not chopped from the respective end.
 #'
 #' @param x An xts matrix

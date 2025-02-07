@@ -14,10 +14,10 @@ nextBusinessDay(dates)
 }
 \value{
 \code{prevBusinessDay} returns the vector of
-  corresponding previous business days.
+corresponding previous business days.
 
-  \code{nextBusinessDay} returns the vector of
-  corresponding next business days.
+\code{nextBusinessDay} returns the vector of
+corresponding next business days.
 }
 \description{
 Previous or next business day

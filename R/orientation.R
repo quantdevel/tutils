@@ -10,7 +10,7 @@
 #'  into landscape orientation prior to printing.
 #'
 #' @param x A matrix or data frame
-#' @return The input (\code{x}) in landscape orientation
+#' @return The input (`x`) in landscape orientation
 #'
 #' @export
 #'
@@ -23,7 +23,7 @@ landscape = function(x, ...) orient(x, "landscape", ...)
 #'  into portrait orientation prior to printing.
 #'
 #' @param x A matrix or data frame
-#' @return The input (\code{x}) in portrait orientation
+#' @return The input (`x`) in portrait orientation
 #'
 #' @export
 #'

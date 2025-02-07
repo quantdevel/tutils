@@ -7,8 +7,8 @@
 #' @param optional Name of optional columns, NULL if none (character, optional)
 #' @param cleanse If TRUE, remove all but the required and optional columns (logical)
 #' @returns The input data frame, converted to a tibble, possibly
-#'   cleansed of extraneous columns (\code{cleanse = TRUE}),
-#'   and with a class attribute given by \code{className}.
+#'   cleansed of extraneous columns (`cleanse = TRUE`),
+#'   and with a class attribute given by `className`.
 #' @examples
 #' df <- data.frame(Pi = pi, E = exp(1), Foo = "fum")
 #' wrapObject(df, "Numbers")

@@ -14,5 +14,5 @@ The input (\code{x}) in portrait orientation
 }
 \description{
 This is handy for forcing a matrix or data frame
- into portrait orientation prior to printing.
+into portrait orientation prior to printing.
 }

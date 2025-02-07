@@ -20,10 +20,10 @@ An xts matrix
 }
 \description{
 This function is a lot like \link{window.zoo},
- but smarter because \code{from} can be a number,
- meaning that many data points.
+but smarter because \code{from} can be a number,
+meaning that many data points.
 }
 \details{
 If either \code{from} or \code{to} is NULL,
- then data is not chopped from the respective end.
+then data is not chopped from the respective end.
 }

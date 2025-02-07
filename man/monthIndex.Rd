@@ -32,5 +32,5 @@ A serial integer for the month
 }
 \description{
 Given a date or a year/month combination,
- return the number of months since Jan 1, 1970.
+return the number of months since Jan 1, 1970.
 }

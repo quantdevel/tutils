@@ -18,21 +18,21 @@ Nothing
 }
 \description{
 This will source all *.R files in the R subdirectory
- of the current project.
- It loads their contents into a new environment,
- and attaches that environment at the top of the search
- path (but underneith the global environment).
+of the current project.
+It loads their contents into a new environment,
+and attaches that environment at the top of the search
+path (but underneith the global environment).
 }
 \details{
 If calls to library() or require() are needed, all such calls must
- be collected into a special file called "packages.R"
- (and that file should contain only calls to library() and/or require()).
- Otherwise, the packages will be loaded into the wrong
- place on the search list.
+be collected into a special file called "packages.R"
+(and that file should contain only calls to library() and/or require()).
+Otherwise, the packages will be loaded into the wrong
+place on the search list.
 }
 \seealso{
 \link{proj_source} for sourcing project files
- into the global environment,
- \link{detach} for removing the new environment
- from the search path.
+into the global environment,
+\link{detach} for removing the new environment
+from the search path.
 }

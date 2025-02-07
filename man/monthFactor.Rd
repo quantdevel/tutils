@@ -30,11 +30,11 @@ Factor with levels Jan, Feb, Mar, ...
 }
 \description{
 Given a zoo or xts object, return a month factor
- based on the index. Factor levels are Jan, Feb, Mar, ...
+based on the index. Factor levels are Jan, Feb, Mar, ...
 }
 \details{
 TODO: Really, there should be monthFactor.zoo,
-   monthFactor.xts, monthFactor.Date, monthFactor.character, monthFactor.integer, etc.
+monthFactor.xts, monthFactor.Date, monthFactor.character, monthFactor.integer, etc.
 }
 \seealso{
 months

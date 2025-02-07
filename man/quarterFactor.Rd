@@ -3,9 +3,9 @@
 \name{quarterFactor}
 \alias{quarterFactor}
 \title{Create quarter-of-year factor from zoo or xts object
- 
- Returns a factor with four levels (Q1, Q2, Q3, Q4),
- taken from index of the parameter.}
+
+Returns a factor with four levels (Q1, Q2, Q3, Q4),
+taken from index of the parameter.}
 \usage{
 quarterFactor(z)
 }
@@ -17,7 +17,7 @@ A factor
 }
 \description{
 Create quarter-of-year factor from zoo or xts object
- 
- Returns a factor with four levels (Q1, Q2, Q3, Q4),
- taken from index of the parameter.
+
+Returns a factor with four levels (Q1, Q2, Q3, Q4),
+taken from index of the parameter.
 }

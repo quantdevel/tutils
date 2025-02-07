@@ -31,7 +31,7 @@ coalesce = function(...) {
 #'
 #' @param lst A list
 #' @return A matrix whose columns are taken from the list elements
-#' @seealso \link{do.rbind}
+#' @seealso [do.rbind]
 #'
 #' @export
 #'
@@ -47,7 +47,7 @@ do.cbind = function(lst) do.call(cbind, lst)
 #'
 #' @param lst A list
 #' @return A matrix whose rows are taken from the list elements
-#' @seealso \link{do.cbind}
+#' @seealso [do.cbind]
 #'
 #' @export
 #'
@@ -59,7 +59,7 @@ do.rbind = function(lst) do.call(rbind, lst)
 #'  Return TRUE if argument is not NA, FALSE otherwise
 #'
 #' @param x Any R object
-#' @return TRUE if \code{x} is not NA, FALSE otherwise.
+#' @return TRUE if `x` is not NA, FALSE otherwise.
 #'
 #' @export
 #'
@@ -71,7 +71,7 @@ non.na = function(x) !is.na(x)
 #'  Return TRUE if argument is not NULL, FALSE otherwise
 #'
 #' @param x Any R object
-#' @return TRUE if \code{x} is not NULL, FALSE otherwise.
+#' @return TRUE if `x` is not NULL, FALSE otherwise.
 #'
 #' @export
 #'

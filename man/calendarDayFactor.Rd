@@ -15,5 +15,5 @@ Factor with 366 levels
 \description{
 Given an xts/zoo object with a Date index,
 return a parallel factor whose levels are the
- calendar day of each Date
+calendar day of each Date
 }

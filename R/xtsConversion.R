@@ -7,21 +7,18 @@
 #'
 #'  DEPRECATED. Use tidy() instead.
 #'
-#'  The three output columns are:
-#'  \itemize{
-#'      \item \code{date} - Taken from xts index
-#'      \item \code{symbol} - Taken from xts column names
-#'      \item \code{value} - Taken from the matrix cell at the intersection
-#'         of \code{date} and \code{symbol}
-#'  }
+#' The three output columns are:
+#' * `date` - Taken from xts index
+#' * `symbol` - Taken from xts column names
+#' * `value` - Taken from the matrix cell at the intersection of `date` and `symbol`
 #'
 #' @param x An xts matrix
 #' @return A data frame with columns
-#'    \code{date}, \code{symbol}, and \code{value}
+#'    `date`, `symbol`, and `value`
 #'
 #' @export
 #'
-xtsToRegressionData = function(x) {
+xtsToRegressionData_OBSOLETE = function(x) {
     decl(x, xts::is.xts)
 
     dfrm = data.frame(date = index(x),
@@ -40,7 +37,7 @@ xtsToRegressionData = function(x) {
 #'
 #' @export
 #'
-xtsToDataFrame = function(x) {
+xtsToDataFrame_OBSOLETE = function(x) {
     decl(x, xts::is.xts)
 
     data.frame(
@@ -58,7 +55,7 @@ xtsToDataFrame = function(x) {
 #'
 #' @export
 #'
-dataFrameToXts = function(dfrm) {
+dataFrameToXts_OBSOLETE = function(dfrm) {
     decl(dfrm, is.data.frame)
 
     stopifnot("date" %in% colnames(dfrm))

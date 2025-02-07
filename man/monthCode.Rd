@@ -11,7 +11,7 @@ monthCode(m)
 }
 \value{
 One-character futures month code,
-   F = Jan, G = Feb, H = March, etc.
+F = Jan, G = Feb, H = March, etc.
 }
 \description{
 Return a futures month code

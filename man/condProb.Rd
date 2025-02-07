@@ -19,19 +19,19 @@ are the relevent trials; NULL means all elements are relevent
 }
 \value{
 Returns a tibble with three columns
-  \itemize{
-    \item CondProb - conditional probability
-    \item Low - lower limit of confidence interval
-    \item High - upper limit of confidence interval
- }
+\itemize{
+\item \code{CondProb} - conditional probability
+\item \code{Low} - lower limit of confidence interval
+\item \code{High} - upper limit of confidence interval
+}
 }
 \description{
 This returns the conditional probability: Pr(succ | trial).
 }
 \details{
 Without the \code{trials} argument, this becomes
- a simple probability calculation.
+a simple probability calculation.
 
- In any event, the output include lower and upper
- confidence bounds.
+In any event, the output include lower and upper
+confidence bounds.
 }

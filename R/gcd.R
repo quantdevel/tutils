@@ -6,9 +6,9 @@
 #'
 #' @param a An integer
 #' @param b Another integer
-#' @return The greatest common divisor of \code{a} and \code{b}
+#' @return The greatest common divisor of `a` and `b`
 #' @seealso Algorithm is descibed on
-#'   \href{ https://en.wikipedia.org/wiki/Euclidean_algorithm}{Wikipedia}
+#'   [Wikipedia]( https://en.wikipedia.org/wiki/Euclidean_algorithm)
 #' @export
 #'
 gcd = function(a, b) {

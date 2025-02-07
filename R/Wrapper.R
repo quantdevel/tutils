@@ -1,11 +1,11 @@
 #'
 #'  Wrap a value and optional messages
 #'
-#'  The \code{wrap} function wraps a value inside a \code{Wrapper} container,
+#'  The `wrap` function wraps a value inside a `Wrapper` container,
 #'  possibly incorporating wrapped messages, too.
 #'
-#'  The \code{unwrap} function extracts the value from the container.
-#'  Unless \code{quiet = TRUE}, it will print the wrapped, associated messages, if any,
+#'  The `unwrap` function extracts the value from the container.
+#'  Unless `quiet = TRUE`, it will print the wrapped, associated messages, if any,
 #'  before returning that extracted value (so the message are not ignored).
 #'
 #'  As a convenience to the caller, the errors, warnings, and info
@@ -20,8 +20,8 @@
 #'   errors, warnings, and infos should be included in this wrapper
 #' @param quiet If TRUE, print the enclosed messages, if any, before
 #'   extracting the enclosed value (logical)
-#' @returns \code{Wrapper} and \code{wrap} eturn a list with class \code{Wrapper}.
-#'   \code{unwrap} returns the value wrapped inside the Wrapper container.
+#' @returns `Wrapper` and `wrap` eturn a list with class `Wrapper`.
+#'   `unwrap` returns the value wrapped inside the Wrapper container.
 #' @export
 #' @examples
 #' w <- wrap(pi, error = "Help me!", warnings = "Just chillin'")
@@ -63,7 +63,7 @@ is.Wrapper = function(x) inherits(x, "Wrapper")
 #'
 #'  Wrap an object
 #'
-#' @seealso \link{Wrapper} object class
+#' @seealso [Wrapper] object class
 #' @param value The value to be wrapped
 #' @param w A Wrapper object whose value will be wrapped
 #'   and whose messages will be incorporated into the Wrapper
