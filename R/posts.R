@@ -100,6 +100,12 @@ postEvent = function(origin, event_type, payload, alert = FALSE) {
 #'
 #' Read the entire events file
 #'
+#' @returns Returns a data frame with columns
+#'   * Origin (character)
+#'   * Timestamp (POSIXct)
+#'   * EventType (character)
+#'   * Payload (list-col)
+#'   * Alert (logical)
 #' @export
 #'
 loadEvents = function(event_types = NULL) {

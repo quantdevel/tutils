@@ -6,6 +6,16 @@
 \usage{
 loadEvents(event_types = NULL)
 }
+\value{
+Returns a data frame with columns
+\itemize{
+\item Origin (character)
+\item Timestamp (POSIXct)
+\item EventType (character)
+\item Payload (list-col)
+\item Alert (logical)
+}
+}
 \description{
 Read the entire events file
 }
