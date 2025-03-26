@@ -31,41 +31,6 @@ loadPostsFile = function(fpath) {
   return(lines)
 }
 
-# # Status handling ----
-#
-# STATUS_FILE = file.path(POSTS_DIR, "status.jsonl")
-#
-# # Write one status to the status file
-# postStatus = function(origin, event_type, payload) {
-#   decl(origin, is.character)
-#   decl(event_type, is.character)
-#
-#   timestamp <- Sys.time()
-#   con <- file(STATUS_FILE, open = "a")
-#
-#   (list(Origin = origin,
-#         Timestamp = timestamp,
-#         EventType = event_type,
-#         Payload = payload)
-#     |> jsonlite::toJSON()
-#     |> writeLines(con = con) )
-#
-#   close(con)
-# }
-#
-# # Read the entire status file
-# loadStatus = function() {
-#   loadPostsFile(STATUS_FILE)
-# }
-#
-# latestStatus = function() {
-#   (loadStatus()
-#    |> dplyr::arrange(Timestamp)
-#    |> dplyr::group_by(Origin, EventType)
-#    |> dplyr::slice_tail()
-#    |> dplyr::ungroup() )
-# }
-
 # Event handling ----
 
 #'
@@ -147,4 +112,32 @@ todaysEvents = function(...) {
 todaysAlerts = function(...) {
   (todaysEvents(...)
    |> dplyr::filter(Alert) )
+}
+
+# Status handling ----
+
+#'
+#' Post a status message to the event log
+#'
+#' @param origin Name of program posting status (character)
+#' @param status Typically "OK" or "Error" or "Failure" (character)
+#' @param message Useful, descriptive text message for user (character)
+#' @param alert If TRUE, alert user to this status (logical)
+#' @seealso [postEvent], which is the underlying writer
+#' @export
+#'
+postStatus = function(origin, status, message, alert = FALSE) {
+  postEvent(origin = origin,
+          event_type = "status",
+          payload = list(status = status,
+                         message = message ),
+          alert = alert )
+}
+
+#' @export
+latestStatus = function() {
+  (latestEvents(event_types = "status")
+   |> dplyr::mutate(Status = purrr::map_chr(Payload, "status"),
+                    Message = purrr::map_chr(Payload, "message"))
+   |> dplyr::select(Origin, Timestamp, Status, Message, Alert) )
 }
