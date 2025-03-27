@@ -115,16 +115,19 @@ todaysEvents = function(...) {
 #'
 #' @param origin Name of program posting status (character)
 #' @param status Typically "OK" or "Error" or "Failure" (character)
-#' @param message Useful, descriptive text message for user (character)
+#' @param message Useful, descriptive text message for user
+#'    (optional, character)
 #' @param alert If TRUE, alert user to this status (logical)
 #' @seealso [postEvent], which is the underlying writer
 #' @export
 #'
-postStatus = function(origin, status, message = NA_character_, alert = FALSE) {
+postStatus = function(origin, status, message = NULL, alert = FALSE) {
   decl(origin, is.character)
   decl(status, is.character)
-  decl(message, is.character)
+  decl(message, is.null %or% is.character)
   decl(alert, is.logical)
+
+  message <- message %||% NA_character_
 
   postEvent(origin = origin,
           event_type = "status",
