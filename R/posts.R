@@ -41,6 +41,10 @@ loadPostsFile = function(fpath) {
 #' @param payload An R object which can be serialized into JSON format
 #' @param alert If TRUE, this event will be brought to the attention
 #'   of the system user
+#' @seealso The event-handling functions:
+#'    [latestEvents], [todaysEvents],
+#'    [postStatus], [latestStatus],
+#'    [latestAlerts], [todaysAlerts]
 #' @export
 #'
 postEvent = function(origin, event_type, payload, alert = FALSE) {
@@ -103,16 +107,6 @@ todaysEvents = function(...) {
    |> dplyr::arrange(Origin, Timestamp, EventType) )
 }
 
-#'
-#' All alerts generated today
-#'
-#' @param ... Passed to [[loadEvents]]
-#' @export
-#'
-todaysAlerts = function(...) {
-  (todaysEvents(...)
-   |> dplyr::filter(Alert) )
-}
 
 # Status handling ----
 
@@ -134,10 +128,53 @@ postStatus = function(origin, status, message, alert = FALSE) {
           alert = alert )
 }
 
+#'
+#'  Most-recent status events
+#'
+#' @returns Returns a data frame with columns
+#'    * Origin
+#'    * Timestamp
+#'    * Status
+#'    * Message
+#'    * Alert
+#' @seealso [postStatus]
 #' @export
+#'
 latestStatus = function() {
   (latestEvents(event_types = "status")
    |> dplyr::mutate(Status = purrr::map_chr(Payload, "status"),
                     Message = purrr::map_chr(Payload, "message"))
    |> dplyr::select(Origin, Timestamp, Status, Message, Alert) )
+}
+
+# Alert handling ----
+
+#'
+#' Most-recent events that are alerts
+#'
+#' Returns most-recent events that have `Alert` set to `TRUE`.
+#'
+#' @param event_types If specified, limit to events of these types
+#'   (optional, character vector)
+#' @seealso [latestEvents], [postEvent]
+#' @export
+#'
+latestAlerts = function(event_types = NULL) {
+  decl(event_types, is.null %or% is.character)
+
+  (latestEvents(event_types = event_types)
+    |> dplyr::filter(Alert)
+    |> dplyr::mutate(Alert = NULL) )
+}
+
+#'
+#' All alerts generated today
+#'
+#' @param ... Passed to [[loadEvents]]
+#' @export
+#'
+todaysAlerts = function(...) {
+  (todaysEvents(...)
+   |> dplyr::filter(Alert)
+   |> dplyr::mutate(Alert = NULL) )
 }

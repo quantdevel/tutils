@@ -19,3 +19,9 @@ of the system user}
 \description{
 Write one event to the event file
 }
+\seealso{
+The event-handling functions:
+\link{latestEvents}, \link{todaysEvents},
+\link{postStatus}, \link{latestStatus},
+\link{latestAlerts}, \link{todaysAlerts}
+}
