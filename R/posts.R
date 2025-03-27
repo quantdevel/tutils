@@ -120,7 +120,12 @@ todaysEvents = function(...) {
 #' @seealso [postEvent], which is the underlying writer
 #' @export
 #'
-postStatus = function(origin, status, message, alert = FALSE) {
+postStatus = function(origin, status, message = NA_character_, alert = FALSE) {
+  decl(origin, is.character)
+  decl(status, is.character)
+  decl(message, is.character)
+  decl(alert, is.logical)
+
   postEvent(origin = origin,
           event_type = "status",
           payload = list(status = status,

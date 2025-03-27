@@ -4,7 +4,7 @@
 \alias{postStatus}
 \title{Post a status message to the event log}
 \usage{
-postStatus(origin, status, message, alert = FALSE)
+postStatus(origin, status, message = NA_character_, alert = FALSE)
 }
 \arguments{
 \item{origin}{Name of program posting status (character)}
