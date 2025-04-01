@@ -19,3 +19,7 @@ Returns a data frame with columns
 \description{
 Read the entire events file
 }
+\seealso{
+This is a lower-level function.
+You probably want to call \link{latestEvents} or \link{todaysEvents} instead.
+}

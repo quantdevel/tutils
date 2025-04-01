@@ -41,10 +41,11 @@ loadPostsFile = function(fpath) {
 #' @param payload An R object which can be serialized into JSON format
 #' @param alert If TRUE, this event will be brought to the attention
 #'   of the system user
-#' @seealso The event-handling functions:
-#'    [latestEvents], [todaysEvents],
-#'    [postStatus], [latestStatus],
-#'    [latestAlerts], [todaysAlerts]
+#' @seealso To post a *status* event, call [postStatus].
+#'
+#' To read events, try [latestEvents] and [todaysEvents].
+#' To read status messages, try [latestStatus].
+#' To read alert messages, try [latestAlerts] and [todaysAlerts].
 #' @export
 #'
 postEvent = function(origin, event_type, payload, alert = FALSE) {
@@ -75,6 +76,8 @@ postEvent = function(origin, event_type, payload, alert = FALSE) {
 #'   * EventType (character)
 #'   * Payload (list-col)
 #'   * Alert (logical)
+#' @seealso This is a lower-level function.
+#'   You probably want to call [latestEvents] or [todaysEvents] instead.
 #' @export
 #'
 loadEvents = function(event_types = NULL) {
@@ -84,6 +87,12 @@ loadEvents = function(event_types = NULL) {
    |> dplyr::filter(is.null(event_types) | (EventType %in% event_types)) )
 }
 
+#'
+#' Read the latest event messages.
+#'
+#' @param event_types Limit to these event types;
+#'   NULL means all events (NULL or character)
+#' @seealso [loadEvents] describes the return type.
 #' @export
 latestEvents = function(event_types = NULL) {
   decl(event_types, is.null %or% is.character)
@@ -99,6 +108,8 @@ latestEvents = function(event_types = NULL) {
 #' All events generated today
 #'
 #' @param ... Passed to [[loadEvents]]
+#' @returns See [loadEvents], the underlying function
+#' @seealso [todaysEvents] for events that happened today
 #' @export
 #'
 todaysEvents = function(...) {
@@ -118,7 +129,8 @@ todaysEvents = function(...) {
 #' @param message Useful, descriptive text message for user
 #'    (optional, character)
 #' @param alert If TRUE, alert user to this status (logical)
-#' @seealso [postEvent], which is the underlying writer
+#' @seealso See [latestStatus] for reading status messages.
+#' See [postEvent] for writing non-status messages.
 #' @export
 #'
 postStatus = function(origin, status, message = NULL, alert = FALSE) {
@@ -145,7 +157,7 @@ postStatus = function(origin, status, message = NULL, alert = FALSE) {
 #'    * Status
 #'    * Message
 #'    * Alert
-#' @seealso [postStatus]
+#' @seealso [postStatus] for posting status messages.
 #' @export
 #'
 latestStatus = function() {
@@ -164,7 +176,7 @@ latestStatus = function() {
 #'
 #' @param event_types If specified, limit to events of these types
 #'   (optional, character vector)
-#' @seealso [latestEvents], [postEvent]
+#' @seealso See [latestEvents] for reading all events.
 #' @export
 #'
 latestAlerts = function(event_types = NULL) {
@@ -179,6 +191,7 @@ latestAlerts = function(event_types = NULL) {
 #' All alerts generated today
 #'
 #' @param ... Passed to [[loadEvents]]
+#' @seealso [postAlert] and [latestAlerts]
 #' @export
 #'
 todaysAlerts = function(...) {

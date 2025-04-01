@@ -14,5 +14,5 @@ latestAlerts(event_types = NULL)
 Returns most-recent events that have \code{Alert} set to \code{TRUE}.
 }
 \seealso{
-\link{latestEvents}, \link{postEvent}
+See \link{latestEvents} for reading all events.
 }

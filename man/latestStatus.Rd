@@ -20,5 +20,5 @@ Returns a data frame with columns
 Most-recent status events
 }
 \seealso{
-\link{postStatus}
+\link{postStatus} for posting status messages.
 }

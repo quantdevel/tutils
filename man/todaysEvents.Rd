@@ -9,6 +9,12 @@ todaysEvents(...)
 \arguments{
 \item{...}{Passed to [\link{loadEvents}]}
 }
+\value{
+See \link{loadEvents}, the underlying function
+}
 \description{
 All events generated today
+}
+\seealso{
+\link{todaysEvents} for events that happened today
 }

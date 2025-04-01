@@ -20,8 +20,9 @@ of the system user}
 Write one event to the event file
 }
 \seealso{
-The event-handling functions:
-\link{latestEvents}, \link{todaysEvents},
-\link{postStatus}, \link{latestStatus},
-\link{latestAlerts}, \link{todaysAlerts}
+To post a \emph{status} event, call \link{postStatus}.
+
+To read events, try \link{latestEvents} and \link{todaysEvents}.
+To read status messages, try \link{latestStatus}.
+To read alert messages, try \link{latestAlerts} and \link{todaysAlerts}.
 }

@@ -20,5 +20,6 @@ postStatus(origin, status, message = NULL, alert = FALSE)
 Post a status message to the event log
 }
 \seealso{
-\link{postEvent}, which is the underlying writer
+See \link{latestStatus} for reading status messages.
+See \link{postEvent} for writing non-status messages.
 }

@@ -12,3 +12,6 @@ todaysAlerts(...)
 \description{
 All alerts generated today
 }
+\seealso{
+\link{postAlert} and \link{latestAlerts}
+}
