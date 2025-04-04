@@ -192,7 +192,8 @@ postStatus = function(origin, status, alert = FALSE,
 #'
 latestStatus = function() {
   (latestEvents(event_types = "status")
-   |> dplyr::select(Origin, Timestamp, Status, Message, Alert) )
+   |> dplyr::select(Origin, Timestamp, Status, Message, Alert,
+                    URL, LinkText ))
 }
 
 # Alert handling ----
