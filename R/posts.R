@@ -17,6 +17,7 @@ loadPostsFile = function(fpath) {
       Origin = lst$Origin,
       Timestamp = as.POSIXct(lst$Timestamp),
       EventType = lst$EventType,
+      Status = lst$Status,
       Alert = lst$Alert,
       Message = lst$Message,
       URL = lst$URL,
@@ -74,6 +75,7 @@ postEvent = function(origin, event_type, status,
   (list(Origin = origin,
         Timestamp = timestamp,
         EventType = event_type,
+        Status = status,
         Alert = alert,
         Message = message,
         URL = url,
@@ -190,8 +192,6 @@ postStatus = function(origin, status, alert = FALSE,
 #'
 latestStatus = function() {
   (latestEvents(event_types = "status")
-   |> dplyr::mutate(Status = purrr::map_chr(Payload, "status"),
-                    Message = purrr::map_chr(Payload, "message"))
    |> dplyr::select(Origin, Timestamp, Status, Message, Alert) )
 }
 
