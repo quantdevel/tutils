@@ -4,17 +4,27 @@
 \alias{postStatus}
 \title{Post a status message to the event log}
 \usage{
-postStatus(origin, status, message = NULL, alert = FALSE)
+postStatus(
+  origin,
+  status,
+  alert = FALSE,
+  message = NA_character_,
+  url = NA_character_,
+  link_text = NA_character_
+)
 }
 \arguments{
 \item{origin}{Name of program posting status (character)}
 
 \item{status}{Typically "OK" or "Error" or "Failure" (character)}
 
-\item{message}{Useful, descriptive text message for user
-(optional, character)}
-
 \item{alert}{If TRUE, alert user to this status (logical)}
+
+\item{message}{(optional, character)}
+
+\item{url}{(optional, character)}
+
+\item{link_text}{(optional, character)}
 }
 \description{
 Post a status message to the event log

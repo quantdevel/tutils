@@ -17,9 +17,11 @@ loadPostsFile = function(fpath) {
       Origin = lst$Origin,
       Timestamp = as.POSIXct(lst$Timestamp),
       EventType = lst$EventType,
-      Payload = list(lst$Payload),
-      Alert = lst$Alert
-    )
+      Alert = lst$Alert,
+      Message = lst$Message,
+      URL = lst$URL,
+      LinkText = lst$LinkText,
+      Payload = list(lst$Payload) )
   }
 
   lines <- (readLines(con)
@@ -38,9 +40,13 @@ loadPostsFile = function(fpath) {
 #'
 #' @param origin (character)
 #' @param event_type (character)
-#' @param payload An R object which can be serialized into JSON format
+#' @param status (character)
 #' @param alert If TRUE, this event will be brought to the attention
 #'   of the system user
+#' @param message (character)
+#' @param url (character)
+#' @param link_text (character)
+#' @param payload Any R object which can be serialized into JSON format
 #' @seealso To post a *status* event, call [postStatus].
 #'
 #' To read events, try [latestEvents] and [todaysEvents].
@@ -48,10 +54,19 @@ loadPostsFile = function(fpath) {
 #' To read alert messages, try [latestAlerts] and [todaysAlerts].
 #' @export
 #'
-postEvent = function(origin, event_type, payload, alert = FALSE) {
+postEvent = function(origin, event_type, status,
+                     alert = FALSE,
+                     message = NA_character_,
+                     url = NA_character_,
+                     link_text = NA_character_,
+                     payload = list()) {
   decl(origin, is.character)
   decl(event_type, is.character)
+  decl(status, is.character)
   decl(alert, is.logical)
+  decl(message, is.character)
+  decl(url, is.character)
+  decl(link_text, is.character)
 
   timestamp <- Sys.time()
   con <- file(EVENTS_FILE, open = "a")
@@ -59,8 +74,11 @@ postEvent = function(origin, event_type, payload, alert = FALSE) {
   (list(Origin = origin,
         Timestamp = timestamp,
         EventType = event_type,
-        Payload = payload,
-        Alert = alert )
+        Alert = alert,
+        Message = message,
+        URL = url,
+        LinkText = link_text,
+        Payload = payload )
     |> jsonlite::toJSON()
     |> writeLines(con = con) )
 
@@ -129,23 +147,33 @@ todaysEvents = function(...) {
 #' @param message Useful, descriptive text message for user
 #'    (optional, character)
 #' @param alert If TRUE, alert user to this status (logical)
+#' @param message (optional, character)
+#' @param url (optional, character)
+#' @param link_text (optional, character)
 #' @seealso See [latestStatus] for reading status messages.
 #' See [postEvent] for writing non-status messages.
 #' @export
 #'
-postStatus = function(origin, status, message = NULL, alert = FALSE) {
+postStatus = function(origin, status, alert = FALSE,
+                      message = NA_character_,
+                      url = NA_character_,
+                      link_text = NA_character_ ) {
   decl(origin, is.character)
   decl(status, is.character)
-  decl(message, is.null %or% is.character)
   decl(alert, is.logical)
+  decl(message, is.null %or% is.character)
+  decl(url, is.character)
+  decl(link_text, is.character)
 
   message <- message %||% NA_character_
 
   postEvent(origin = origin,
           event_type = "status",
-          payload = list(status = status,
-                         message = message ),
-          alert = alert )
+          status = status,
+          alert = alert,
+          message = message,
+          url = url,
+          link_text = link_text )
 }
 
 #'

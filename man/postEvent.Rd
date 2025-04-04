@@ -4,17 +4,34 @@
 \alias{postEvent}
 \title{Write one event to the event file}
 \usage{
-postEvent(origin, event_type, payload, alert = FALSE)
+postEvent(
+  origin,
+  event_type,
+  status,
+  alert = FALSE,
+  message = NA_character_,
+  url = NA_character_,
+  link_text = NA_character_,
+  payload = list()
+)
 }
 \arguments{
 \item{origin}{(character)}
 
 \item{event_type}{(character)}
 
-\item{payload}{An R object which can be serialized into JSON format}
+\item{status}{(character)}
 
 \item{alert}{If TRUE, this event will be brought to the attention
 of the system user}
+
+\item{message}{(character)}
+
+\item{url}{(character)}
+
+\item{link_text}{(character)}
+
+\item{payload}{Any R object which can be serialized into JSON format}
 }
 \description{
 Write one event to the event file
