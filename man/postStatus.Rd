@@ -8,7 +8,7 @@ postStatus(
   origin,
   status,
   alert = FALSE,
-  message = NA_character_,
+  message = NULL,
   url = NA_character_,
   link_text = NA_character_
 )
@@ -20,7 +20,7 @@ postStatus(
 
 \item{alert}{If TRUE, alert user to this status (logical)}
 
-\item{message}{(optional, character)}
+\item{message}{Message displayed to user (optional, character)}
 
 \item{url}{(optional, character)}
 

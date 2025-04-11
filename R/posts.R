@@ -44,9 +44,10 @@ loadPostsFile = function(fpath) {
 #' @param status (character)
 #' @param alert If TRUE, this event will be brought to the attention
 #'   of the system user
-#' @param message (character)
-#' @param url (character)
-#' @param link_text (character)
+#' @param message Message shown to user,
+#'   defaults to "<origin>: <status>" (optional, character)
+#' @param url URL for relevant app, if any (optional, character)
+#' @param link_text Text for link to URL (optional, character)
 #' @param payload Any R object which can be serialized into JSON format
 #' @seealso To post a *status* event, call [postStatus].
 #'
@@ -57,7 +58,7 @@ loadPostsFile = function(fpath) {
 #'
 postEvent = function(origin, event_type, status,
                      alert = FALSE,
-                     message = NA_character_,
+                     message = NULL,
                      url = NA_character_,
                      link_text = NA_character_,
                      payload = list()) {
@@ -70,6 +71,8 @@ postEvent = function(origin, event_type, status,
   decl(link_text, is.character)
 
   timestamp <- Sys.time()
+  message <- message %||% paste0(origin, ": ", status)
+
   con <- file(EVENTS_FILE, open = "a")
 
   (list(Origin = origin,
@@ -104,7 +107,7 @@ loadEvents = function(event_types = NULL) {
   decl(event_types, is.null %or% is.character)
 
   (loadPostsFile(EVENTS_FILE)
-   |> dplyr::filter(is.null(event_types) | (EventType %in% event_types)) )
+    |> dplyr::filter(is.null(event_types) | (EventType %in% event_types)) )
 }
 
 #'
@@ -118,10 +121,10 @@ latestEvents = function(event_types = NULL) {
   decl(event_types, is.null %or% is.character)
 
   (loadEvents(event_types = event_types)
-   |> dplyr::arrange(Timestamp)
-   |> dplyr::group_by(Origin, EventType)
-   |> dplyr::slice_tail()
-   |> dplyr::ungroup() )
+    |> dplyr::arrange(Timestamp)
+    |> dplyr::group_by(Origin, EventType)
+    |> dplyr::slice_tail()
+    |> dplyr::ungroup() )
 }
 
 #'
@@ -149,7 +152,7 @@ todaysEvents = function(...) {
 #' @param message Useful, descriptive text message for user
 #'    (optional, character)
 #' @param alert If TRUE, alert user to this status (logical)
-#' @param message (optional, character)
+#' @param message Message displayed to user (optional, character)
 #' @param url (optional, character)
 #' @param link_text (optional, character)
 #' @seealso See [latestStatus] for reading status messages.
@@ -157,7 +160,7 @@ todaysEvents = function(...) {
 #' @export
 #'
 postStatus = function(origin, status, alert = FALSE,
-                      message = NA_character_,
+                      message = NULL,
                       url = NA_character_,
                       link_text = NA_character_ ) {
   decl(origin, is.character)
@@ -167,15 +170,15 @@ postStatus = function(origin, status, alert = FALSE,
   decl(url, is.character)
   decl(link_text, is.character)
 
-  message <- message %||% NA_character_
+  message <- message %||% paste0(origin, ": ", status)
 
   postEvent(origin = origin,
-          event_type = "status",
-          status = status,
-          alert = alert,
-          message = message,
-          url = url,
-          link_text = link_text )
+            event_type = "status",
+            status = status,
+            alert = alert,
+            message = message,
+            url = url,
+            link_text = link_text )
 }
 
 #'

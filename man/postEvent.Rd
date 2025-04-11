@@ -9,7 +9,7 @@ postEvent(
   event_type,
   status,
   alert = FALSE,
-  message = NA_character_,
+  message = NULL,
   url = NA_character_,
   link_text = NA_character_,
   payload = list()
@@ -25,11 +25,12 @@ postEvent(
 \item{alert}{If TRUE, this event will be brought to the attention
 of the system user}
 
-\item{message}{(character)}
+\item{message}{Message shown to user,
+defaults to "\if{html}{\out{<origin>}}: \if{html}{\out{<status>}}" (optional, character)}
 
-\item{url}{(character)}
+\item{url}{URL for relevant app, if any (optional, character)}
 
-\item{link_text}{(character)}
+\item{link_text}{Text for link to URL (optional, character)}
 
 \item{payload}{Any R object which can be serialized into JSON format}
 }
