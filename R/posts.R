@@ -3,231 +3,239 @@
 #
 
 POSTS_DIR = "/tau/posts"
+STATUS_DIR = file.path(POSTS_DIR, "status")
 
+ALERTS_PATH = file.path(POSTS_DIR, "alerts.jsonl")
+
+# OBSOLETE
 #' @export
 EVENTS_FILE = file.path(POSTS_DIR, "events.jsonl")
 
 # Local functions ----
 
-loadPostsFile = function(fpath) {
-  con <- file(fpath, open = "r")
 
-  make_tibble = function(lst) {
-    tibble::tibble(
-      Origin = lst$Origin,
-      Timestamp = as.POSIXct(lst$Timestamp),
-      EventType = lst$EventType,
-      Status = lst$Status,
-      Alert = lst$Alert,
-      Message = lst$Message,
-      URL = lst$URL,
-      LinkText = lst$LinkText,
-      Payload = list(lst$Payload) )
-  }
-
-  lines <- (readLines(con)
-            |> purrr::map(jsonlite::fromJSON)
-            |> purrr::map(make_tibble)
-            |> purrr::list_rbind() )
-
-  close(con)
-  return(lines)
-}
-
-# Event handling ----
+# Status handling ----
 
 #'
-#'  Write one event to the event file
+#' Post a status message
 #'
-#' @param origin (character)
-#' @param event_type (character)
-#' @param status (character)
-#' @param alert If TRUE, this event will be brought to the attention
-#'   of the system user
-#' @param message Message shown to user,
-#'   defaults to "<origin>: <status>" (optional, character)
-#' @param url URL for relevant app, if any (optional, character)
-#' @param link_text Text for link to URL (optional, character)
-#' @param payload Any R object which can be serialized into JSON format
-#' @seealso To post a *status* event, call [postStatus].
-#'
-#' To read events, try [latestEvents] and [todaysEvents].
-#' To read status messages, try [latestStatus].
-#' To read alert messages, try [latestAlerts] and [todaysAlerts].
+#' @param origin Name of program that is posting status (character)
+#' @param status Typically "OK" or "Error" or "Failure" (character)
+#' @param message Useful, descriptive text message for user
+#'    (optional, character)
+#' @param url URL of related app page, if any
+#'    (optional, character)
+#' @param link_text Link text for anchor of related app page, if any
+#'    (optional, character)
+#' @returns Nothing
+#' @seealso See [readStatus] for reading status messages.
 #' @export
 #'
-postEvent = function(origin, event_type, status,
-                     alert = FALSE,
-                     message = NULL,
-                     url = NA_character_,
-                     link_text = NA_character_,
-                     payload = list()) {
+postStatus = function(origin, status,
+                      message = NULL,
+                      url = NA_character_,
+                      link_text = NA_character_ ) {
   decl(origin, is.character)
-  decl(event_type, is.character)
   decl(status, is.character)
-  decl(alert, is.logical)
-  decl(message, is.character)
+  decl(message, is.null %or% is.character)
   decl(url, is.character)
   decl(link_text, is.character)
 
   timestamp <- Sys.time()
   message <- message %||% paste0(origin, ": ", status)
 
-  con <- file(EVENTS_FILE, open = "a")
+  con <- file(status_file_path(origin), open = "a")
 
   (list(Origin = origin,
-        Timestamp = timestamp,
-        EventType = event_type,
+        Timestamp = format(timestamp),
         Status = status,
-        Alert = alert,
         Message = message,
         URL = url,
-        LinkText = link_text,
-        Payload = payload )
+        LinkText = link_text )
     |> jsonlite::toJSON()
     |> writeLines(con = con) )
 
+  invisible(NULL)
+}
+
+#'
+#' @title Read Tau status postings
+#' @description
+#' blah blah blah
+#' @param origin Limit to postings from this origin (optional, character)
+#' @returns Returns a data frame with columns
+#'    - Origin (character)
+#'    - Timestamp (POSIXct)
+#'    - Status (character)
+#'    - Message (character or NA)
+#'    - URL (character or NA)
+#'    - LinkText (character or NA)
+#'
+#' Returns an empty data frame if no status postings are available.
+#' @seealso [postStatus] for posting a status in the first place
+#' @export
+#'
+readStatus = function(origin = NULL) {
+  decl(origin, is.null %or% is.character)
+
+  fpaths <-
+    if (is.null(origin)) {
+      (STATUS_DIR
+       |> list.files(pattern = ".json", full.names = TRUE) )
+    } else {
+      (status_file_path(origin)
+       |> purrr::keep(file.exists) )
+    }
+
+  if (length(fpaths) > 0) {
+    (fpaths
+     |> purrr::map(read_status_file)
+     |> purrr::list_rbind() )
+  } else {
+    empty_status()
+  }
+}
+
+status_file_path = function(origin) {
+  file.path(STATUS_DIR, paste0(origin, ".json"))
+}
+
+read_status_file = function(fpath) {
+  con <- file(fpath, open = "r")
+
+  make_tibble = function(lst) {
+    tibble::tibble(
+      Origin = lst$Origin,
+      Timestamp = as.POSIXct(lst$Timestamp),
+      Status = lst$Status,
+      Message = lst$Message,
+      URL = lst$URL,
+      LinkText = lst$LinkText )
+  }
+
+  rows <- (readLines(con)
+           |> purrr::map(jsonlite::fromJSON)
+           |> purrr::map(make_tibble)
+           |> purrr::list_rbind() )
+
   close(con)
+  return(rows)
 }
 
-#'
-#' Read the entire events file
-#'
-#' @returns Returns a data frame with columns
-#'   * Origin (character)
-#'   * Timestamp (POSIXct)
-#'   * EventType (character)
-#'   * Payload (list-col)
-#'   * Alert (logical)
-#' @seealso This is a lower-level function.
-#'   You probably want to call [latestEvents] or [todaysEvents] instead.
-#' @export
-#'
-loadEvents = function(event_types = NULL) {
-  decl(event_types, is.null %or% is.character)
-
-  (loadPostsFile(EVENTS_FILE)
-    |> dplyr::filter(is.null(event_types) | (EventType %in% event_types)) )
-}
-
-#'
-#' Read the latest event messages.
-#'
-#' @param event_types Limit to these event types;
-#'   NULL means all events (NULL or character)
-#' @seealso [loadEvents] describes the return type.
-#' @export
-latestEvents = function(event_types = NULL) {
-  decl(event_types, is.null %or% is.character)
-
-  (loadEvents(event_types = event_types)
-    |> dplyr::arrange(Timestamp)
-    |> dplyr::group_by(Origin, EventType)
-    |> dplyr::slice_tail()
-    |> dplyr::ungroup() )
-}
-
-#'
-#' All events generated today
-#'
-#' @param ... Passed to [[loadEvents]]
-#' @returns See [loadEvents], the underlying function
-#' @seealso [todaysEvents] for events that happened today
-#' @export
-#'
-todaysEvents = function(...) {
-  (loadEvents(...)
-   |> dplyr::filter(as.Date(Timestamp) == Sys.Date())
-   |> dplyr::arrange(Origin, Timestamp, EventType) )
-}
-
-
-# Status handling ----
-
-#'
-#' Post a status message to the event log
-#'
-#' @param origin Name of program posting status (character)
-#' @param status Typically "OK" or "Error" or "Failure" (character)
-#' @param message Useful, descriptive text message for user
-#'    (optional, character)
-#' @param alert If TRUE, alert user to this status (logical)
-#' @param message Message displayed to user (optional, character)
-#' @param url (optional, character)
-#' @param link_text (optional, character)
-#' @seealso See [latestStatus] for reading status messages.
-#' See [postEvent] for writing non-status messages.
-#' @export
-#'
-postStatus = function(origin, status, alert = FALSE,
-                      message = NULL,
-                      url = NA_character_,
-                      link_text = NA_character_ ) {
-  decl(origin, is.character)
-  decl(status, is.character)
-  decl(alert, is.logical)
-  decl(message, is.null %or% is.character)
-  decl(url, is.character)
-  decl(link_text, is.character)
-
-  message <- message %||% paste0(origin, ": ", status)
-
-  postEvent(origin = origin,
-            event_type = "status",
-            status = status,
-            alert = alert,
-            message = message,
-            url = url,
-            link_text = link_text )
-}
-
-#'
-#'  Most-recent status events
-#'
-#' @returns Returns a data frame with columns
-#'    * Origin
-#'    * Timestamp
-#'    * Status
-#'    * Message
-#'    * Alert
-#' @seealso [postStatus] for posting status messages.
-#' @export
-#'
-latestStatus = function() {
-  (latestEvents(event_types = "status")
-   |> dplyr::select(Origin, Timestamp, Status, Message, Alert,
-                    URL, LinkText ))
+empty_status = function() {
+  tibble::tibble(Origin = character(0),
+                 Timestamp = as.POSIXct(character(0)),
+                 Status = character(0),
+                 Message = character(0),
+                 URL = character(0),
+                 LinkText = character(0) )
 }
 
 # Alert handling ----
 
 #'
-#' Most-recent events that are alerts
-#'
-#' Returns most-recent events that have `Alert` set to `TRUE`.
-#'
-#' @param event_types If specified, limit to events of these types
-#'   (optional, character vector)
-#' @seealso See [latestEvents] for reading all events.
+#' @title Post an alert
+#' @description
+#' (TBD)
+#' @param origin (character)
+#' @param topic (optional, character)
+#' @param message (optional, character)
+#' @param expiration Date or time at which alert expires,
+#'   default to next business day after the current trading day
+#'   (optional, Date or POSIXt)
+#' @param url (optional, character)
+#' @param link_text (optional, character)
+#' @returns Nothing
+#' @seealso [readAlerts] to read all open alerts
 #' @export
 #'
-latestAlerts = function(event_types = NULL) {
-  decl(event_types, is.null %or% is.character)
+postAlert = function(origin, message,
+                     expiration = NULL,
+                     topic = NA_character_,
+                     url = NA_character_,
+                     link_text = NA_character_ ) {
+  decl(origin, is.character)
+  decl(message, is.character)
+  decl(expiration, is.null %or% lubridate::is.Date %or% lubridate::is.POSIXt)
+  decl(topic, is.character)
+  decl(url, is.character)
+  decl(link_text, is.character)
 
-  (latestEvents(event_types = event_types)
-    |> dplyr::filter(Alert)
-    |> dplyr::mutate(Alert = NULL) )
+  timestamp <- Sys.time()
+  expiration <- expiration %||% tutils::nextBusinessDay(tutils::thisTradingDay())
+
+  con <- file(ALERTS_PATH, open = "a")
+
+  (list(Origin = origin,
+        Timestamp = format(timestamp),
+        Message = message,
+        Expiration = format(expiration),
+        Topic = topic,
+        URL = url,
+        LinkText = link_text )
+    |> jsonlite::toJSON()
+    |> writeLines(con = con) )
+
+  close(con)
+  invisible(NULL)
 }
 
 #'
-#' All alerts generated today
+#' @title Read all non-expired alerts
+#' @description
+#' Return all open alerts; that is, alerts which have not yet expired.
 #'
-#' @param ... Passed to [[loadEvents]]
-#' @seealso [postAlert] and [latestAlerts]
+#' For a given Origin and Topic, only the most recent alert is returned.
+#'
+#' @returns Returns a data frame with columns
+#'   - Origin (character)
+#'   - Timestamp (POSIXct)
+#'   - Message (character)
+#'   - Expiration (POSIXct)
+#'   - Topic (character or NA)
+#'   - URL (character or NA)
+#'   - LinkText (character or)
+#'
+#' The data frame will be empty if there are no active alerts.
+#'
+#' @seealso [postAlert] for posting an alert in the first place.
 #' @export
 #'
-todaysAlerts = function(...) {
-  (todaysEvents(...)
-   |> dplyr::filter(Alert)
-   |> dplyr::mutate(Alert = NULL) )
+readAlerts = function() {
+  if (!file.exists(ALERTS_PATH)) {
+    return(empty_alerts())
+  }
+
+  con <- file(ALERTS_PATH, open = "r")
+
+  make_tibble = function(lst) {
+    tibble::tibble(
+      Origin = lst$Origin,
+      Timestamp = as.POSIXct(lst$Timestamp),
+      Message = lst$Message,
+      Expiration = as.POSIXct(lst$Expiration),
+      Topic = lst$Topic,
+      URL = lst$URL,
+      LinkText = lst$LinkText )
+  }
+
+  lines <- (readLines(con)
+            |> purrr::map(jsonlite::fromJSON)
+            |> purrr::map(make_tibble)
+            |> purrr::list_rbind()
+            |> dplyr::filter(Expiration > Sys.time())
+            |> dplyr::slice_tail(n = 1, by = c(Origin, Topic)) )
+
+  close(con)
+  return(lines)
+}
+
+empty_alerts = function() {
+  tibble::tibble(Origin = character(0),
+                 Timestamp = as.POSIXct(character(0)),
+                 Message = character(0),
+                 Topic = character(0),
+                 Expiration = as.POSIXct(character(0)),
+                 URL = character(0),
+                 LinkText = character(0) )
 }

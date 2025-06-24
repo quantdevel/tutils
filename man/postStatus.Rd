@@ -2,34 +2,36 @@
 % Please edit documentation in R/posts.R
 \name{postStatus}
 \alias{postStatus}
-\title{Post a status message to the event log}
+\title{Post a status message}
 \usage{
 postStatus(
   origin,
   status,
-  alert = FALSE,
   message = NULL,
   url = NA_character_,
   link_text = NA_character_
 )
 }
 \arguments{
-\item{origin}{Name of program posting status (character)}
+\item{origin}{Name of program that is posting status (character)}
 
 \item{status}{Typically "OK" or "Error" or "Failure" (character)}
 
-\item{alert}{If TRUE, alert user to this status (logical)}
+\item{message}{Useful, descriptive text message for user
+(optional, character)}
 
-\item{message}{Message displayed to user (optional, character)}
+\item{url}{URL of related app page, if any
+(optional, character)}
 
-\item{url}{(optional, character)}
-
-\item{link_text}{(optional, character)}
+\item{link_text}{Link text for anchor of related app page, if any
+(optional, character)}
+}
+\value{
+Nothing
 }
 \description{
-Post a status message to the event log
+Post a status message
 }
 \seealso{
-See \link{latestStatus} for reading status messages.
-See \link{postEvent} for writing non-status messages.
+See \link{readStatus} for reading status messages.
 }
