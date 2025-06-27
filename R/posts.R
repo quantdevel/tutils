@@ -5,6 +5,7 @@
 POSTS_DIR = "/tau/posts"
 STATUS_DIR = file.path(POSTS_DIR, "status")
 
+#' @export
 ALERTS_PATH = file.path(POSTS_DIR, "alerts.jsonl")
 
 # OBSOLETE
