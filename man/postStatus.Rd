@@ -30,7 +30,10 @@ postStatus(
 Nothing
 }
 \description{
-Post a status message
+Post the status of an origin, including a helpful message.
+}
+\details{
+Note that posting a new status will overwrite any existing status.
 }
 \seealso{
 See \link{readStatus} for reading status messages.

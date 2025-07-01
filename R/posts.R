@@ -20,6 +20,10 @@ EVENTS_FILE = file.path(POSTS_DIR, "events.jsonl")
 #'
 #' Post a status message
 #'
+#' Post the status of an origin, including a helpful message.
+#'
+#' Note that posting a new status will overwrite any existing status.
+#'
 #' @param origin Name of program that is posting status (character)
 #' @param status Typically "OK" or "Error" or "Failure" (character)
 #' @param message Useful, descriptive text message for user
@@ -45,7 +49,7 @@ postStatus = function(origin, status,
   timestamp <- Sys.time()
   message <- message %||% paste0(origin, ": ", status)
 
-  con <- file(status_file_path(origin), open = "a")
+  con <- file(status_file_path(origin), open = "w")
 
   (list(Origin = origin,
         Timestamp = format(timestamp),
@@ -56,6 +60,7 @@ postStatus = function(origin, status,
     |> jsonlite::toJSON()
     |> writeLines(con = con) )
 
+  close(con)
   invisible(NULL)
 }
 
