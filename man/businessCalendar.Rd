@@ -4,13 +4,13 @@
 \alias{businessCalendar}
 \title{Generate vector of business dates}
 \usage{
-businessCalendar(from = START_OF_TIME, to = Sys.Date())
+businessCalendar(from = START_OF_TIME, to = NULL)
 }
 \arguments{
-\item{from}{Date or numeric;
-numeric is number of days before \code{to} date}
+\item{from}{Date, or character string in standard date format;
+or numeric, meaning the number of days before \code{to} date}
 
-\item{to}{Date}
+\item{to}{Date or character string in standard date format}
 }
 \value{
 Vector of Date objects

@@ -7,7 +7,7 @@
 businessDaySeq(from, horizon)
 }
 \arguments{
-\item{from}{A Date object}
+\item{from}{A Date object or character string in standard date format}
 
 \item{horizon}{Either a number of dates or an end Date}
 }

@@ -21,21 +21,22 @@ isBusinessDay = function(dates) {
 #'
 #'  Generate vector of business dates
 #'
-#' @param from Date or numeric;
-#'   numeric is number of days before `to` date
-#' @param to Date
+#' @param from Date, or character string in standard date format;
+#'   or numeric, meaning the number of days before `to` date
+#' @param to Date or character string in standard date format
 #' @return Vector of Date objects
 #' @export
 #'
-businessCalendar = function(from=START_OF_TIME, to=Sys.Date()) {
-  decl(from, is.numeric %or% lubridate::is.Date)
-  decl(to, lubridate::is.Date)
+businessCalendar = function(from = START_OF_TIME, to = NULL) {
+  decl(from, is.numeric %or% lubridate::is.Date %or% is.character)
+  to <- as.Date(to %||% Sys.Date())
 
-  if (lubridate::is.Date(from)) {
-    start <- from
-  } else {
+  if (is.numeric(from)) {
     start <- subBusinessDays(to, from)
+  } else {
+    start <- as.Date(from)
   }
+
   allDates <- seq(start, by=1, to=to)
   allDates[isBusinessDay(allDates)]
 }
@@ -169,36 +170,45 @@ nextBusinessDay = function(dates) addBusinessTimeUnits(dates, +1, 0)
 #'
 #'  Create sequence of business dates
 #'
-#' @param from A Date object
+#' @param from A Date object or character string in standard date format
 #' @param horizon Either a number of dates or an end Date
 #' @return Vector of Date objects
 #'
 #' @export
 #'
 businessDaySeq = function(from, horizon) {
-  decl(from, lubridate::is.Date)
-  decl(horizon, is.numeric %or% lubridate::is.Date)
+  from <- as.Date(from)
+  decl(horizon, is.numeric %or% lubridate::is.Date %or% is.character)
 
   if (is.numeric(horizon)) {
     stopifnot(horizon > 0)
 
-    if (horizon == 1) return(from)
-    seq <- rep(from, horizon)     # Just creating a vector of N dates
-    for (i in 2:horizon) {
-      seq[i] <- nextBusinessDay(seq[i-1])
+    if (horizon == 1) {
+      from
+    } else {
+      purrr::accumulate(.x = 2:horizon,
+                        .f = \(prev, i) nextBusinessDay(prev),
+                        .init = from )
     }
-  } else {
-    # This can happen, for example, if expiration dates get screwed up
-    if (horizon < from) stop("businessDaySeq: 'horizon' is earlier than 'from'")
 
-    seq <- list()
-    while (from <= horizon) {
-      seq[length(seq) + 1] <- from
-      from <- nextBusinessDay(from)
-    }
-    seq <- unlist(seq)
+    # seq <- rep(from, horizon)     # Just creating a vector of N dates
+    # for (i in 2:horizon) {
+    #   seq[i] <- nextBusinessDay(seq[i-1])
+    # }
+  } else {
+    businessCalendar(from, as.Date(horizon))
+
+    # # This can happen, for example, if expiration dates get screwed up
+    # if (horizon < from) stop("businessDaySeq: 'horizon' is earlier than 'from'")
+    #
+    # seq <- list()
+    # while (from <= horizon) {
+    #   seq[length(seq) + 1] <- from
+    #   from <- nextBusinessDay(from)
+    # }
+    # seq <- unlist(seq)
+    # as.Date(seq)
   }
-  as.Date(seq)
 }
 
 #'
