@@ -5,53 +5,9 @@
 #' @return Nothing. Called for side-effect
 #' @export
 #'
-catln = function(...) cat(..., "\n")
-
-#'
-#'  Return first non-NULL, non-NA argument
-#'
-#' @param ... Just arguments
-#' @return First nont-NULL, non-NA value
-#' @export
-#'
-coalesce = function(...) {
-    for (x in list(...)) {
-        if (!is.null(x) && !is.na(x)) return(x)
-    }
-    NULL
-} 
-
-#'
-#'  Bind list elements into columns - OBSOLETE
-#'
-#'  OBSOLETE. Replaced by dplyr::bind_cols.
-#'
-#'  This is handy with the pipe operator:
-#'  aList |> lapply(aFunction) |> do.cbind()
-#'
-#' @param lst A list
-#' @return A matrix whose columns are taken from the list elements
-#' @seealso [do.rbind]
-#'
-#' @export
-#'
-do.cbind = function(lst) do.call(cbind, lst)
-
-#'
-#'  Bind list elements into rows - OBSOLETE
-#'
-#'  OBSOLETE. Replaced by dplyr::bind_rows.
-#'
-#'  This is handy with the pipe operator:
-#'  alist |> lapply(aFunction) |> do.rbind()
-#'
-#' @param lst A list
-#' @return A matrix whose rows are taken from the list elements
-#' @seealso [do.cbind]
-#'
-#' @export
-#'
-do.rbind = function(lst) do.call(rbind, lst)
+catln = function(...) {
+  cat(..., "\n")
+}
 
 #'
 #'  Test for non-NA
@@ -63,7 +19,9 @@ do.rbind = function(lst) do.call(rbind, lst)
 #'
 #' @export
 #'
-non.na = function(x) !is.na(x)
+non.na = function(x) {
+  !is.na(x)
+}
 
 #'
 #'  Test for non-NULL
@@ -75,28 +33,21 @@ non.na = function(x) !is.na(x)
 #'
 #' @export
 #'
-non.null = function(x) !is.null(x)
-
-#'
-#'  Return Nth item of a vector or Nth row of a 2-dimensional structure
-#'
-#' @param x Vector, matrix, or data frame
-#' @param n Index of item or row
-#' @return Nth item of vector, or Nth row of matrix or data frame
-#' @export
-#'
-nth = function(x, n) {
-  dims = dim(x)
-  if (is.null(dims)) {
-    x[[n]]
-  } else if (length(dims) == 2) {
-    x[n,]
-  } else {
-    stop("Cannot take Nth item of multi-dimensional structure")
-  }
+non.null = function(x) {
+  !is.null(x)
 }
 
+#'
+#' @title Set column names in a pipe
+#'
+#' @description
+#' This is like assigning column names, but in a pipe-friendly way.
+#'
+#' @param x Anything that has column names
+#' @param names Character vector of new column names
+#' @seealso [magrittr::set_colnames], from which this idea was stolen
 #' @export
+#'
 setColnames = function(x, names) {
     colnames(x) <- names
     return(x)

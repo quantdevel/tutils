@@ -2,23 +2,23 @@ context("testing business date functions")
 
 test_that("regular old days are business days", {
     d <- as.Date("2013-02-22")
-    expect_that(isBusinessDay(d) , is_true())
+    expect_true(isBusinessDay(d))
 })
 
 test_that("weekends are not business days", {
     sat <- as.Date("2013-02-23")
     sun <- as.Date("2013-02-24")
 
-    expect_that(isBusinessDay(sat), is_false())
-    expect_that(isBusinessDay(sun), is_false())
+    expect_false(isBusinessDay(sat))
+    expect_false(isBusinessDay(sun))
 })
 
 test_that("holidays are not business days", {
     tgiving <- as.Date("2012-11-22")
-    expect_that(isBusinessDay(tgiving), is_false())
+    expect_false(isBusinessDay(tgiving))
 
     xmas <- as.Date("2012-12-25")
-    expect_that(isBusinessDay(xmas), is_false())
+    expect_false(isBusinessDay(xmas))
 })
 
 test_that("business day before weekend is Friday", {
@@ -104,4 +104,14 @@ test_that("fillBusinessDays fills leading NAs", {
 
   expect_equal(filled[[1]], thurs)
   expect_equal(filled[[2]], fri)
+})
+
+test_that("businessDaySeq can accept Date parameters", {
+  bdays <- businessDaySeq(as.Date("2025-1-1"), as.Date("2025-1-7"))
+  expect_equal(bdays, as.Date(c("2025-01-02", "2025-01-03", "2025-01-06", "2025-01-07")))
+})
+
+test_that("businessDaySeq can accept character strings", {
+  bdays <- businessDaySeq("2025-1-1", "2025-1-7")
+  expect_equal(bdays, as.Date(c("2025-01-02", "2025-01-03", "2025-01-06", "2025-01-07")))
 })

@@ -15,8 +15,8 @@ test_that("basic forward diff works", {
 #
 # For your reference:
 #
-# expect_that(x, is_true())            expect_true(x)
-# expect_that(x, is_false())           expect_false(x)
+# expect_true(x)
+# expect_false(x)
 # expect_that(x, is_a(y))              expect_is(x, y)
 # expect_that(x, equals(y))            expect_equal(x, y)
 # expect_that(x, is_equivalent_to(y))  expect_equivalent(x, y)
