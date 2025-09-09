@@ -2,7 +2,7 @@
 #'  Estimate and confidence intervals of a quantile
 #'
 #' @param y A vector of sample data
-#' @param prob Numeric probability in range [0, 1]
+#' @param prob Numeric probability in closed interval \[0, 1\]
 #' @param alpha Tail probability
 #'
 #' @return Three-element,named vector: estimate, lowerCI, upperCI

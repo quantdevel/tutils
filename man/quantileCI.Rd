@@ -9,7 +9,7 @@ quantileCI(y, prob, conf.level = 0.95, method = "binomial", na.rm = FALSE, ...)
 \arguments{
 \item{y}{A vector of sample data}
 
-\item{prob}{Numeric probability in range \link{0, 1}}
+\item{prob}{Numeric probability in closed interval [0, 1]}
 
 \item{alpha}{Tail probability}
 }

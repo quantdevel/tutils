@@ -19,7 +19,7 @@ or NULL (for all data to end)}
 An xts matrix
 }
 \description{
-This function is a lot like \link{window.zoo},
+This function is a lot like \link[zoo:window.zoo]{zoo::window.zoo},
 but smarter because \code{from} can be a number,
 meaning that many data points.
 }
