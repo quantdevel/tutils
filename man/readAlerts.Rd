@@ -4,7 +4,11 @@
 \alias{readAlerts}
 \title{Read all non-expired alerts}
 \usage{
-readAlerts()
+readAlerts(subset = c("recent", "all"))
+}
+\arguments{
+\item{subset}{The rows to return. By default, only the most recent alerts,
+for a given \code{Origin} and \code{Topic}, are returned.}
 }
 \value{
 Returns a data frame with columns
@@ -22,8 +26,6 @@ The data frame will be empty if there are no active alerts.
 }
 \description{
 Return all open alerts; that is, alerts which have not yet expired.
-
-For a given Origin and Topic, only the most recent alert is returned.
 }
 \seealso{
 \link{postAlert} for posting an alert in the first place.

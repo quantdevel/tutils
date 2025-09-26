@@ -186,12 +186,12 @@ postAlert = function(origin, message,
   invisible(NULL)
 }
 
+#' Read all non-expired alerts
 #'
-#' @title Read all non-expired alerts
-#' @description
 #' Return all open alerts; that is, alerts which have not yet expired.
 #'
-#' For a given Origin and Topic, only the most recent alert is returned.
+#' @param subset The rows to return. By default, only the most recent alerts,
+#'   for a given `Origin` and `Topic`, are returned.
 #'
 #' @returns Returns a data frame with columns
 #'   - Origin (character)
@@ -202,12 +202,16 @@ postAlert = function(origin, message,
 #'   - URL (character or NA)
 #'   - LinkText (character or)
 #'
-#' The data frame will be empty if there are no active alerts.
+#'   The data frame will be empty if there are no active alerts.
 #'
 #' @seealso [postAlert] for posting an alert in the first place.
-#' @export
 #'
-readAlerts = function() {
+#' @export
+readAlerts = function(
+    subset = c("recent", "all")
+) {
+  subset <- rlang::arg_match(subset)
+
   if (!file.exists(ALERTS_PATH)) {
     return(empty_alerts())
   }
@@ -230,7 +234,10 @@ readAlerts = function() {
             |> purrr::map(make_tibble)
             |> purrr::list_rbind()
             |> dplyr::filter(Expiration > Sys.time())
-            |> dplyr::slice_tail(n = 1, by = c(Origin, Topic)) )
+            |> do_if(
+              isTRUE(subset == "recent"),
+              ~ dplyr::slice_tail(., n = 1, by = c(Origin, Topic))
+            ))
 
   close(con)
   return(lines)
