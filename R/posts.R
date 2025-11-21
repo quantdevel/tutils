@@ -218,7 +218,21 @@ readAlerts = function(
 
   con <- file(ALERTS_PATH, open = "r")
 
+  # All columns in the alerts file are character type.
+  # But the fromJSON() reader sometimes interprets
+  # columns badly, returning an empty list
+  # or simple NA (instead of NA_character_).
   make_tibble = function(lst) {
+    clean_up = \(.) {
+      if (is.list(.) || is.logical(.)) {
+        NA_character_
+      } else {
+        .
+      }
+    }
+
+    lst <- map(lst, .f = clean_up)
+
     tibble::tibble(
       Origin = lst$Origin,
       Timestamp = as.POSIXct(lst$Timestamp),
