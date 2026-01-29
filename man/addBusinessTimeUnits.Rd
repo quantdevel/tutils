@@ -14,5 +14,7 @@ addBusinessTimeUnits(dates, n, timeUnit)
 \item{timeUnit}{Units of time: 0 = days, 1 = weeks, 2 = months, 3 = years}
 }
 \description{
-Add business time units
+Given a vector of Date objects,
+add or subtract days, weeks, months, or years
+according to the calendar of business dates.
 }

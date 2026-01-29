@@ -1,5 +1,10 @@
 #'
-#'  Employ an ellipsis, if necessary
+#' @title Join a list of strings, using ellipsis if necessary
+#' @description
+#' This joins a vector of strings into one string
+#' with the elements separated by commas.
+#' If there are too many inputs, however,
+#' will use an ellipsis to shorten the output.
 #'
 #' @param strings Vector of strings to be joined (character)
 #' @param max Number of strings before ellipsis (integer)
@@ -12,11 +17,22 @@
 #'   If `strings` is empty, then `empty` is returned.
 #' @export
 #' @examples
+#' # This returns "tom, dick, harry, peter"
 #' smartEllipsis(c("tom", "dick", "harry", "peter"), 4)
+#'
+#' # This also ret urns "tom, dick, harry, peter"
 #' smartEllipsis(c("tom", "dick", "harry", "peter"), 3)
+#'
+#' # This returns "tom, dick, harry, ..."
 #' smartEllipsis(c("tom", "dick", "harry", "peter"), 3, tail = 0)
+#'
+#' # This returns "tom, dick, ..., peter"
 #' smartEllipsis(c("tom", "dick", "harry", "peter"), 2)
+#'
+#' # This returns "tom, dick, ..."
 #' smartEllipsis(c("tom", "dick", "harry", "peter"), 2, tail = 0)
+#'
+#' # This returns "None"
 #' smartEllipsis(character(0), 3)
 #'
 smartEllipsis = function(strings, max = 2, tail = 1, empty = "None") {

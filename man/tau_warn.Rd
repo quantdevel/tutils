@@ -2,23 +2,24 @@
 % Please edit documentation in R/tau_warn.R
 \name{tau_warn}
 \alias{tau_warn}
-\title{Tau-style warning message}
+\title{Log a warning message}
 \usage{
 tau_warn(..., sep = " ", call. = FALSE, immediate. = TRUE)
 }
 \arguments{
-\item{...}{The message (characters)}
+\item{...}{The message elements (characters)}
 
 \item{sep}{Message separator (character)}
 
-\item{call.}{Passed to base::warning (logical)}
+\item{call.}{Obsolete, not used.}
 
-\item{immediate.}{Passed to base::warning (logical)}
+\item{immediate.}{Obsolete, not used.}
 }
 \value{
-Returns the warning message as a character string, invisibly,
-but mostly called for its side effect
+Invisible list of logger objects,
+but mostly called for it's side effect.
 }
 \description{
-This is like base::warning(), but friendlier.
+This is a wrapper for logger::log_warn,
+letting the caller set the separator.
 }

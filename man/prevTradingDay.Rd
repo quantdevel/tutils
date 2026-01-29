@@ -2,7 +2,7 @@
 % Please edit documentation in R/businessDates.R
 \name{prevTradingDay}
 \alias{prevTradingDay}
-\title{Previous trading day}
+\title{Previous trading date}
 \usage{
 prevTradingDay()
 }
@@ -10,5 +10,9 @@ prevTradingDay()
 Date object
 }
 \description{
-Previous trading day
+Returns the trading date immediately prior to
+the current trading date.
+}
+\seealso{
+\link{thisTradingDay}, which returns the current trading date.
 }

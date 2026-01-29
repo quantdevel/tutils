@@ -7,14 +7,18 @@
 businessCalendar(from = START_OF_TIME, to = NULL)
 }
 \arguments{
-\item{from}{Date, or character string in standard date format;
-or numeric, meaning the number of days before \code{to} date}
+\item{from}{A Date object or a character string in standard date format;
+or numeric, meaning the number of days before \code{to} date.
+Defaults to \code{START_OF_TIME}, which is the first date
+for which we have historical data.}
 
-\item{to}{Date or character string in standard date format}
+\item{to}{A Date object or a character string in standard date format.
+Defaults to current date (\code{Sys.Date()}).}
 }
 \value{
 Vector of Date objects
 }
 \description{
-Generate vector of business dates
+Given a \code{from} date and a \code{to} date, return
+a vector of business days from start to end.
 }

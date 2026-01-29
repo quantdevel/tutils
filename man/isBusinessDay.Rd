@@ -10,8 +10,10 @@ isBusinessDay(dates)
 \item{dates}{Vector of Date objects}
 }
 \value{
-Logical vector
+Logical vector, same length as the input
 }
 \description{
-Predicate for business days
+Test a vector of dates for being business days.
+Returns a vector of logical values, same length as the input:
+TRUE if the date is a business day, FALSE if not.
 }

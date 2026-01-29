@@ -6,10 +6,13 @@ END_OF_TRADING_DAY = 12 + 7   # hour of day; CSI claims futures posted by 7:10 P
 START_OF_TIME = as.Date("1987-01-01")
 
 #'
-#'  Predicate for business days
-#'
+#' @title Predicate for business days
+#' @description
+#' Test a vector of dates for being business days.
+#' Returns a vector of logical values, same length as the input:
+#' TRUE if the date is a business day, FALSE if not.
 #' @param dates Vector of Date objects
-#' @return Logical vector
+#' @return Logical vector, same length as the input
 #' @export
 #'
 isBusinessDay = function(dates) {
@@ -19,11 +22,16 @@ isBusinessDay = function(dates) {
 }
 
 #'
-#'  Generate vector of business dates
-#'
-#' @param from Date, or character string in standard date format;
-#'   or numeric, meaning the number of days before `to` date
-#' @param to Date or character string in standard date format
+#' @title Generate vector of business dates
+#' @description
+#' Given a `from` date and a `to` date, return
+#' a vector of business days from start to end.
+#' @param from A Date object or a character string in standard date format;
+#' or numeric, meaning the number of days before `to` date.
+#' Defaults to `START_OF_TIME`, which is the first date
+#' for which we have historical data.
+#' @param to A Date object or a character string in standard date format.
+#' Defaults to current date (`Sys.Date()`).
 #' @return Vector of Date objects
 #' @export
 #'
@@ -42,10 +50,16 @@ businessCalendar = function(from = START_OF_TIME, to = NULL) {
 }
 
 #'
-#'  Find business date nearest to given date
-#'
+#' @title Find the business dates nearest to given dates
+#' @description
+#' Given a vector of dates, find the most recent business dates
+#' on or before the given dates.
 #' @param dates  Vector of Date objects
 #' @return Vector of Date objects
+#' @examples
+#' # If today is a business day, return today.
+#' # Otherwise, return the most recent business date.
+#' nearestBusinessDay(Sys.Date())
 #' @export
 #'
 nearestBusinessDay = function(dates = Sys.Date()) {
@@ -54,9 +68,12 @@ nearestBusinessDay = function(dates = Sys.Date()) {
 }
 
 #'
-#'  Previous trading day
-#'
+#' @title Previous trading date
+#' @description
+#' Returns the trading date immediately prior to
+#' the current trading date.
 #' @return Date object
+#' @seealso [thisTradingDay], which returns the current trading date.
 #' @export
 #'
 prevTradingDay = function() {
@@ -72,9 +89,16 @@ prevTradingDay = function() {
 }
 
 #'
-#'  Current trading day
+#' @title The current trading date
+#' @description
+#' Returns the current trading date;
+#' that is, the date for which we can trade right now.
 #'
+#' Normally, today is the current trading date;
+#' but on weekends, the current trading date
+#' is typically Monday (or Tuesday, if Monday is a holiday).
 #' @return Date object
+#' @seealso [prevTradingDay] for the trading date before the current trading date.
 #' @export
 #'
 thisTradingDay = function() {
@@ -90,8 +114,11 @@ thisTradingDay = function() {
 }
 
 #'
-#' Add business time units
-#'
+#' @title Add business time units
+#' @description
+#' Given a vector of Date objects,
+#' add or subtract days, weeks, months, or years
+#' according to the calendar of business dates.
 #' @param dates Vector of Date objects
 #' @param n Number of units to add
 #' @param timeUnit Units of time: 0 = days, 1 = weeks, 2 = months, 3 = years
@@ -106,11 +133,10 @@ addBusinessTimeUnits = function(dates, n, timeUnit) {
 }
 
 #'
-#'  Business unit date arithmetic
-#'
-#'  Given a vector of dates, add or subtract
-#'  business date units from it: days, weeks, months, or years.
-#'
+#' @title Business unit date arithmetic
+#' @description
+#' Given a vector of dates, add or subtract
+#' business date units from it: days, weeks, months, or years.
 #' @param dates Vector of Date objects
 #' @param n Number ov days, weeks, months, or years
 #'   to either add or subtract (integer)

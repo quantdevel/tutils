@@ -2,7 +2,7 @@
 % Please edit documentation in R/businessDates.R
 \name{nearestBusinessDay}
 \alias{nearestBusinessDay}
-\title{Find business date nearest to given date}
+\title{Find the business dates nearest to given dates}
 \usage{
 nearestBusinessDay(dates = Sys.Date())
 }
@@ -13,5 +13,11 @@ nearestBusinessDay(dates = Sys.Date())
 Vector of Date objects
 }
 \description{
-Find business date nearest to given date
+Given a vector of dates, find the most recent business dates
+on or before the given dates.
+}
+\examples{
+# If today is a business day, return today.
+# Otherwise, return the most recent business date.
+nearestBusinessDay(Sys.Date())
 }

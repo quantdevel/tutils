@@ -2,7 +2,7 @@
 % Please edit documentation in R/businessDates.R
 \name{thisTradingDay}
 \alias{thisTradingDay}
-\title{Current trading day}
+\title{The current trading date}
 \usage{
 thisTradingDay()
 }
@@ -10,5 +10,13 @@ thisTradingDay()
 Date object
 }
 \description{
-Current trading day
+Returns the current trading date;
+that is, the date for which we can trade right now.
+
+Normally, today is the current trading date;
+but on weekends, the current trading date
+is typically Monday (or Tuesday, if Monday is a holiday).
+}
+\seealso{
+\link{prevTradingDay} for the trading date before the current trading date.
 }

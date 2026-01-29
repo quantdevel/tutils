@@ -2,7 +2,7 @@
 % Please edit documentation in R/smartEllipsis.R
 \name{smartEllipsis}
 \alias{smartEllipsis}
-\title{Employ an ellipsis, if necessary}
+\title{Join a list of strings, using ellipsis if necessary}
 \usage{
 smartEllipsis(strings, max = 2, tail = 1, empty = "None")
 }
@@ -23,14 +23,28 @@ the extra elements are replaced by an ellipsis.
 If \code{strings} is empty, then \code{empty} is returned.
 }
 \description{
-Employ an ellipsis, if necessary
+This joins a vector of strings into one string
+with the elements separated by commas.
+If there are too many inputs, however,
+will use an ellipsis to shorten the output.
 }
 \examples{
+# This returns "tom, dick, harry, peter"
 smartEllipsis(c("tom", "dick", "harry", "peter"), 4)
+
+# This also ret urns "tom, dick, harry, peter"
 smartEllipsis(c("tom", "dick", "harry", "peter"), 3)
+
+# This returns "tom, dick, harry, ..."
 smartEllipsis(c("tom", "dick", "harry", "peter"), 3, tail = 0)
+
+# This returns "tom, dick, ..., peter"
 smartEllipsis(c("tom", "dick", "harry", "peter"), 2)
+
+# This returns "tom, dick, ..."
 smartEllipsis(c("tom", "dick", "harry", "peter"), 2, tail = 0)
+
+# This returns "None"
 smartEllipsis(character(0), 3)
 
 }
