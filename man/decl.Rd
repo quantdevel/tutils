@@ -7,9 +7,9 @@
 decl(x, pred)
 }
 \arguments{
-\item{`x`}{Variable to be type-checked}
+\item{x}{Variable to be type-checked}
 
-\item{`pred`}{A type checking predicate, such as
+\item{pred}{A type checking predicate, such as
 \code{is.character} or \code{is.data.frame} (function)}
 }
 \value{

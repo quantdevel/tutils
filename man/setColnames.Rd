@@ -15,5 +15,5 @@ setColnames(x, names)
 This is like assigning column names, but in a pipe-friendly way.
 }
 \seealso{
-\link[magrittr:aliases]{magrittr::set_colnames}, from which this idea was stolen
+\link[magrittr:set_colnames]{magrittr::set_colnames}, from which this idea was stolen
 }

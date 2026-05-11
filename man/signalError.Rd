@@ -26,5 +26,5 @@ Returns nothing. Called for its effect.
 Signal an error condition. Possibly log the error, too.
 }
 \seealso{
-The message is logged via \code{\link[logger:log_level]{logger::log_error()}}.
+The message is logged via \code{\link[logger:log_error]{logger::log_error()}}.
 }
