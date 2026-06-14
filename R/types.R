@@ -13,15 +13,27 @@ LONG_SIDE = structure("long", class = "Side")
 #' @export
 NA_SIDE = structure(NA_character_, class = "Side")
 
+#' @title Side type
+#' @description
+#' The `Side` type indicates a *long* or *short* position
+#' by using the strings "long" and "short".
+#'
+#' - "long" indicates position that is owned
+#' - "short" indicates a position sold short
+#'
+#' @param x A character vector with values "long" and "short".
+#' @seealso [Polarity] type, [Tone] type
 #' @export
 Side = function(x) {
   fatalIfNot(all(x %in% c(SHORT_SIDE, LONG_SIDE, NA)), "Invalid Side values")
   structure(x, class = "Side")
 }
 
+#' @rdname Side
 #' @export
 is.Side = function(x) inherits(x, "Side")
 
+#' @rdname Side
 #' @export
 as.Side = function(x) UseMethod("as.Side", x)
 
@@ -73,15 +85,30 @@ SHORT_POLARITY = structure(-1L, class = "Polarity")
 #' @export
 LONG_POLARITY = structure(+1L, class = "Polarity")
 
+#' @title Polarity type
+#' @description
+#' The `Polarity` type indicates a *long* or *short* position
+#' by using +1 and -1.
+#'
+#' - +1 indicates a long position.
+#' - -1 indicates a short position
+#'
+#' Note that this indicates only the polarity (long vs. short),
+#' not the size of the position.
+#'
+#' @param x A vector integer values +1 or -1
+#' @seealso [Side] type, [Tone] type
 #' @export
 Polarity = function(x) {
   fatalIfNot(all(x %in% c(-1, +1, NA)), "Invalid Polarity values")
   structure(as.integer(x), class = "Polarity")
 }
 
+#' @rdname Polarity
 #' @export
 is.Polarity = function(x) inherits(x, "Polarity")
 
+#' @rdname Polarity
 #' @export
 as.Polarity = function(x) UseMethod("as.Polarity", x)
 
@@ -137,6 +164,11 @@ BULL_MKT = "bull"
 
 TONE_LEVELS = c(BEAR_MKT, BULL_MKT)
 
+#' @title Tone type
+#' @description A `Tone` type indicates if a market is
+#' generally trending *upward* ("bull") or *downward* ("bear").
+#' @param x A character vector of the values "bull" and "bear"
+#' @seealso [Side] type, [Polarity] type
 #' @export
 Tone = function(x) {
   fatalIfNot(all(x %in% TONE_LEVELS),
@@ -144,9 +176,11 @@ Tone = function(x) {
   structure(x, class = "Tone")
 }
 
+#' @rdname Tone
 #' @export
 is.Tone = function(x) inherits(x, "Tone")
 
+#' @rdname Tone
 #' @export
 as.Tone = function(x) UseMethod("as.Tone", x)
 
