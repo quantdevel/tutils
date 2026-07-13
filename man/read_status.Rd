@@ -2,10 +2,16 @@
 % Please edit documentation in R/status.R
 \name{read_status}
 \alias{read_status}
-\title{Read process status}
+\title{Read the status of a process}
 \usage{
 read_status(name)
 }
+\arguments{
+\item{name}{The name of the process}
+}
+\value{
+Returns a list
+}
 \description{
-Read process status
+Read the status of a process
 }

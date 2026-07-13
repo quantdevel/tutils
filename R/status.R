@@ -8,15 +8,41 @@ status_file_path = function(name) {
 }
 
 #'
-#' @title Set process status
-#' @export
+#' @title Post process status
+#' @description
+#' Any Tau process can post a status, indicating all-OK or problems.
+#' Other processes can view the posted status.
 #'
-post_status = function(name, status, alert = FALSE, messages = list(), url = NULL) {
+#' Typically, posting status is the final act before exiting.
+#'
+#' If the status is set with `alert = TRUE`, then the end user is
+#' notified of the status update.
+#' @param name Name of the posting process (character)
+#' @param status Status indicator, such as "ok", "error", or "failed".
+#' @param message Optional useful messages. Either a character string,
+#' a vector of character, or a list of character.
+#' @param url Optional URL where the user can find more information.#'
+#' @export
+#' @examples
+#' # Signal that my_process ended successfully
+#' post_status("my_process", status = "ok")
+#'
+#' # Signal that other_process ended on an error
+#' post_status("other_process", status = "error")
+#'
+#' # Same, and notify user
+#' post_status("other_process", status = "error", alert = TRUE)
+#'
+post_status = function(name, status, alert = FALSE, message = NULL, url = NULL) {
   decl(name, is.character)
   decl(status, is.character)
   decl(alert, is.logical)
-  decl(messages, is.list)
+  decl(message, is.null %or% is.character %or% is.list)
   decl(url, is.null %or% is.character)
+
+  if (is.character(message)) {
+    message <- as.list(message)
+  }
 
   timestamp <- Sys.time()
   fpath <- status_file_path(name)
@@ -25,26 +51,44 @@ post_status = function(name, status, alert = FALSE, messages = list(), url = NUL
         status = status,
         alert = alert,
         timestamp = format(timestamp),
-        messages = messages,
+        message = message,
         url = url )
     |> jsonlite::toJSON(pretty = TRUE)
     |> writeLines(con = fpath) )
+
+  invisible(NULL)
 }
 
 #'
 #' @title Post an alert
-#' @export
+#' @description
+#' Post the status of a process, and alert the user to the status change.
 #'
-post_alert = function(name, status = "error", messages = list(), url = NULL) {
+#' This is a convenience function that calls [post_status] with
+#' `alert=TRUE`.
+#' Parameters are same as to [post_status].
+#'
+#' @param name (character)
+#' @param status (character)
+#' @param message (character or list of character))
+#' @param url (character)
+#' @export
+#' @examples
+#' # Post an error status and ask for notification of user
+#' post_alert("other-process", status = "error")
+#'
+post_alert = function(name, status = "error", message = NULL, url = NULL) {
   post_status(name = name,
               status = status,
               alert = TRUE,
-              messages = messages,
+              message = message,
               url = url )
 }
 
 #'
-#' @title Read process status
+#' @title Read the status of a process
+#' @param name The name of the process
+#' @returns Returns a list
 #' @export
 #'
 read_status = function(name) {

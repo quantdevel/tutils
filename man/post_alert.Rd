@@ -4,8 +4,26 @@
 \alias{post_alert}
 \title{Post an alert}
 \usage{
-post_alert(name, status = "error", messages = list(), url = NULL)
+post_alert(name, status = "error", message = NULL, url = NULL)
+}
+\arguments{
+\item{name}{(character)}
+
+\item{status}{(character)}
+
+\item{message}{(character or list of character))}
+
+\item{url}{(character)}
 }
 \description{
-Post an alert
+Post the status of a process, and alert the user to the status change.
+
+This is a convenience function that calls \link{post_status} with
+\code{alert=TRUE}.
+Parameters are same as to \link{post_status}.
+}
+\examples{
+# Post an error status and ask for notification of user
+post_alert("other-process", status = "error")
+
 }

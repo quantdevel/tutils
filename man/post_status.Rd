@@ -2,10 +2,37 @@
 % Please edit documentation in R/status.R
 \name{post_status}
 \alias{post_status}
-\title{Set process status}
+\title{Post process status}
 \usage{
-post_status(name, status, alert = FALSE, messages = list(), url = NULL)
+post_status(name, status, alert = FALSE, message = NULL, url = NULL)
+}
+\arguments{
+\item{name}{Name of the posting process (character)}
+
+\item{status}{Status indicator, such as "ok", "error", or "failed".}
+
+\item{message}{Optional useful messages. Either a character string,
+a vector of character, or a list of character.}
+
+\item{url}{Optional URL where the user can find more information.#'}
 }
 \description{
-Set process status
+Any Tau process can post a status, indicating all-OK or problems.
+Other processes can view the posted status.
+
+Typically, posting status is the final act before exiting.
+
+If the status is set with \code{alert = TRUE}, then the end user is
+notified of the status update.
+}
+\examples{
+# Signal that my_process ended successfully
+post_status("my_process", status = "ok")
+
+# Signal that other_process ended on an error
+post_status("other_process", status = "error")
+
+# Same, and notify user
+post_status("other_process", status = "error", alert = TRUE)
+
 }
