@@ -5,8 +5,9 @@
 POSTS_DIR = "/tau/posts"
 STATUS_DIR = file.path(POSTS_DIR, "status")
 
+# OBSOLETE
 #' @export
-ALERTS_PATH = file.path(POSTS_DIR, "alerts.jsonl")
+# ALERTS_PATH = file.path(POSTS_DIR, "alerts.jsonl")
 
 # OBSOLETE
 #' @export
@@ -34,9 +35,8 @@ EVENTS_FILE = file.path(POSTS_DIR, "events.jsonl")
 #'    (optional, character)
 #' @returns Nothing
 #' @seealso See [readStatus] for reading status messages.
-#' @export
 #'
-postStatus = function(origin, status,
+postStatus_OBSOLETE = function(origin, status,
                       message = NULL,
                       url = NA_character_,
                       link_text = NA_character_ ) {
@@ -79,9 +79,8 @@ postStatus = function(origin, status,
 #'
 #' Returns an empty data frame if no status postings are available.
 #' @seealso [postStatus] for posting a status in the first place
-#' @export
 #'
-readStatus = function(origin = NULL) {
+readStatus_OBSOLETE = function(origin = NULL) {
   decl(origin, is.null %or% is.character)
 
   fpaths <-
@@ -102,11 +101,11 @@ readStatus = function(origin = NULL) {
   }
 }
 
-status_file_path = function(origin) {
+status_file_path_OBSOLETE = function(origin) {
   file.path(STATUS_DIR, paste0(origin, ".json"))
 }
 
-read_status_file = function(fpath) {
+read_status_file_OBSOLETE = function(fpath) {
   con <- file(fpath, open = "r")
 
   make_tibble = function(lst) {
@@ -128,7 +127,7 @@ read_status_file = function(fpath) {
   return(rows)
 }
 
-empty_status = function() {
+empty_status_OBSOLETE = function() {
   tibble::tibble(Origin = character(0),
                  Timestamp = as.POSIXct(character(0)),
                  Status = character(0),
@@ -153,9 +152,8 @@ empty_status = function() {
 #' @param link_text (optional, character)
 #' @returns Nothing
 #' @seealso [readAlerts] to read all open alerts
-#' @export
 #'
-postAlert = function(origin, message,
+postAlert_OBSOLETE = function(origin, message,
                      expiration = NULL,
                      topic = NA_character_,
                      url = NA_character_,
@@ -206,8 +204,7 @@ postAlert = function(origin, message,
 #'
 #' @seealso [postAlert] for posting an alert in the first place.
 #'
-#' @export
-readAlerts = function(
+readAlerts_OBSOLETE = function(
     subset = c("recent", "all")
 ) {
   subset <- rlang::arg_match(subset)
@@ -257,7 +254,7 @@ readAlerts = function(
   return(lines)
 }
 
-empty_alerts = function() {
+empty_alerts_OBSOLETE = function() {
   tibble::tibble(Origin = character(0),
                  Timestamp = as.POSIXct(character(0)),
                  Message = character(0),
