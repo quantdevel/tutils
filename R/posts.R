@@ -5,9 +5,9 @@
 POSTS_DIR = "/tau/posts"
 STATUS_DIR = file.path(POSTS_DIR, "status")
 
-# OBSOLETE
+# OBSOLETE - but still used in rogue code
 #' @export
-# ALERTS_PATH = file.path(POSTS_DIR, "alerts.jsonl")
+ALERTS_PATH = file.path(POSTS_DIR, "alerts.jsonl")
 
 # OBSOLETE
 #' @export
