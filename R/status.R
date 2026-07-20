@@ -19,9 +19,8 @@ status_file_path = function(name) {
 #' notified of the status update.
 #' @param name Name of the posting process (character)
 #' @param status Status indicator, such as "ok", "error", or "failed".
-#' @param message Optional useful messages. Either a character string,
-#' a vector of character, or a list of character.
-#' @param url Optional URL where the user can find more information.#'
+#' @param message Optional useful message.
+#' @param url Optional URL where the user can find more information.
 #' @export
 #' @examples
 #' # Signal that my_process ended successfully
@@ -33,27 +32,24 @@ status_file_path = function(name) {
 #' # Same, and notify user
 #' post_status("other_process", status = "error", alert = TRUE)
 #'
-post_status = function(name, status, alert = FALSE, message = NULL, url = NULL) {
+post_status = function(name, status, alert = FALSE,
+                       message = NA_character_, url = NA_character_ ) {
   decl(name, is.character)
   decl(status, is.character)
   decl(alert, is.logical)
-  decl(message, is.null %or% is.character %or% is.list)
-  decl(url, is.null %or% is.character)
-
-  if (is.character(message)) {
-    message <- as.list(message)
-  }
+  decl(message, is.character)
+  decl(url, is.character)
 
   timestamp <- Sys.time()
   fpath <- status_file_path(name)
 
-  (list(name = name,
-        status = status,
-        alert = alert,
-        timestamp = format(timestamp),
-        message = message,
-        url = url )
-    |> jsonlite::toJSON(pretty = TRUE)
+  (data.frame(name = name,
+              status = status,
+              alert = alert,
+              timestamp = format(timestamp),
+              message = message,
+              url = url )
+    |> jsonlite::toJSON(pretty = TRUE, na = "string")
     |> writeLines(con = fpath) )
 
   invisible(NULL)
@@ -77,7 +73,8 @@ post_status = function(name, status, alert = FALSE, message = NULL, url = NULL) 
 #' # Post an error status and ask for notification of user
 #' post_alert("other-process", status = "error")
 #'
-post_alert = function(name, status = "error", message = NULL, url = NULL) {
+post_alert = function(name, status = "error",
+                      message = NA_character_, url = NA_character_) {
   post_status(name = name,
               status = status,
               alert = TRUE,
@@ -102,6 +99,28 @@ read_status = function(name) {
   return(status)
 }
 
-## TODO: read_active_status = status whose timestamp is yesterday
+#'
+#' @title Read all current status files
+#' @description
+#' A status file is *current* if its timestamp
+#' is the current settlement date or later
+#' @returns Returns a data frame of status information.
+#' Returns an empty data frame if there are not current
+#' status reports.
+#' @export
+#'
+read_current_status = function() {
+  midnight <- as.POSIXct(taudata::settleDate())
 
-## TODO: read_active_alerts = status whose timestamp is yesterday and alert == TRUE
+  ("/tau/status"
+    |> list.files(pattern = ".json")
+    |> purrr::map(read_status)
+    |> purrr::keep(~ .$timestamp >= midnight)
+    |> purrr::list_rbind() )
+}
+
+#' @export
+read_current_alerts = function() {
+  (read_current_status()
+   |> dplyr::filter(alert) )
+}

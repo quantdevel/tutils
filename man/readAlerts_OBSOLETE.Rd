@@ -27,6 +27,3 @@ The data frame will be empty if there are no active alerts.
 \description{
 Return all open alerts; that is, alerts which have not yet expired.
 }
-\seealso{
-\link{postAlert} for posting an alert in the first place.
-}

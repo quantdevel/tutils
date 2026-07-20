@@ -34,6 +34,3 @@ Nothing
 \description{
 (TBD)
 }
-\seealso{
-\link{readAlerts} to read all open alerts
-}

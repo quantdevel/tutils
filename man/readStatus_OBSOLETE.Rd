@@ -25,6 +25,3 @@ Returns an empty data frame if no status postings are available.
 \description{
 blah blah blah
 }
-\seealso{
-\link{postStatus} for posting a status in the first place
-}

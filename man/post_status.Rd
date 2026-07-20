@@ -4,17 +4,22 @@
 \alias{post_status}
 \title{Post process status}
 \usage{
-post_status(name, status, alert = FALSE, message = NULL, url = NULL)
+post_status(
+  name,
+  status,
+  alert = FALSE,
+  message = NA_character_,
+  url = NA_character_
+)
 }
 \arguments{
 \item{name}{Name of the posting process (character)}
 
 \item{status}{Status indicator, such as "ok", "error", or "failed".}
 
-\item{message}{Optional useful messages. Either a character string,
-a vector of character, or a list of character.}
+\item{message}{Optional useful message.}
 
-\item{url}{Optional URL where the user can find more information.#'}
+\item{url}{Optional URL where the user can find more information.}
 }
 \description{
 Any Tau process can post a status, indicating all-OK or problems.

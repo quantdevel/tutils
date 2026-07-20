@@ -34,7 +34,6 @@ EVENTS_FILE = file.path(POSTS_DIR, "events.jsonl")
 #' @param link_text Link text for anchor of related app page, if any
 #'    (optional, character)
 #' @returns Nothing
-#' @seealso See [readStatus] for reading status messages.
 #'
 postStatus_OBSOLETE = function(origin, status,
                       message = NULL,
@@ -78,7 +77,6 @@ postStatus_OBSOLETE = function(origin, status,
 #'    - LinkText (character or NA)
 #'
 #' Returns an empty data frame if no status postings are available.
-#' @seealso [postStatus] for posting a status in the first place
 #'
 readStatus_OBSOLETE = function(origin = NULL) {
   decl(origin, is.null %or% is.character)
@@ -151,7 +149,6 @@ empty_status_OBSOLETE = function() {
 #' @param url (optional, character)
 #' @param link_text (optional, character)
 #' @returns Nothing
-#' @seealso [readAlerts] to read all open alerts
 #'
 postAlert_OBSOLETE = function(origin, message,
                      expiration = NULL,
@@ -201,8 +198,6 @@ postAlert_OBSOLETE = function(origin, message,
 #'   - LinkText (character or)
 #'
 #'   The data frame will be empty if there are no active alerts.
-#'
-#' @seealso [postAlert] for posting an alert in the first place.
 #'
 readAlerts_OBSOLETE = function(
     subset = c("recent", "all")

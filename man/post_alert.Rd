@@ -4,7 +4,12 @@
 \alias{post_alert}
 \title{Post an alert}
 \usage{
-post_alert(name, status = "error", message = NULL, url = NULL)
+post_alert(
+  name,
+  status = "error",
+  message = NA_character_,
+  url = NA_character_
+)
 }
 \arguments{
 \item{name}{(character)}
